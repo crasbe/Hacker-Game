@@ -22,6 +22,7 @@ public class gui3_missinf extends JFrame {
   private JTextArea jTextArea4 = new JTextArea("");
     private JScrollPane jTextArea4ScrollPane = new JScrollPane(jTextArea4);
   private JSeparator jSeparator1 = new JSeparator();
+  private JButton btnHack = new JButton();
   // Ende Attribute
   
   public gui3_missinf(String title) { 
@@ -52,24 +53,36 @@ public class gui3_missinf extends JFrame {
     jTextArea2.setForeground(Color.GREEN);
     jTextArea2.setFont(new Font("Fixedsys", Font.PLAIN, 12));
     cp.add(jTextArea2ScrollPane);
-    jTextArea3ScrollPane.setBounds(216, 24, 361, 105);
+    jTextArea3ScrollPane.setBounds(216, 24, 361, 73);
     jTextArea3.setBackground(Color.BLACK);
     jTextArea3.setText(" - Schwierigkeit: \n - Kosten:\n - ...");
     jTextArea3.setFont(new Font("Fixedsys", Font.PLAIN, 12));
     jTextArea3.setForeground(Color.GREEN);
     cp.add(jTextArea3ScrollPane);
-    jTextArea4ScrollPane.setBounds(216, 144, 361, 105);
+    jTextArea4ScrollPane.setBounds(216, 128, 361, 73);
     jTextArea4.setBackground(Color.BLACK);
     jTextArea4.setText(" - Gewinn:\n - Skillverbesserung:\n - ...");
     jTextArea4.setFont(new Font("Fixedsys", Font.PLAIN, 12));
     jTextArea4.setForeground(Color.GREEN);
     cp.add(jTextArea4ScrollPane);
-    jSeparator1.setBounds(216, 136, 361, 1);
+    jSeparator1.setBounds(216, 112, 361, 9);
     jSeparator1.setBackground(Color.GREEN);
     jSeparator1.setForeground(Color.GREEN);
     jSeparator1.setFont(new Font("Dialog", Font.BOLD, 48));
     cp.add(jSeparator1);
     cp.setBackground(Color.BLACK);
+    btnHack.setBounds(320, 216, 257, 49);
+    btnHack.setText("Hack");
+    btnHack.setMargin(new Insets(2, 2, 2, 2));
+    btnHack.addActionListener(new ActionListener() { 
+      public void actionPerformed(ActionEvent evt) { 
+        btnHack_ActionPerformed(evt);
+      }
+    });
+    btnHack.setBackground(Color.RED);
+    btnHack.setForeground(Color.BLACK);
+    btnHack.setFont(new Font("Fixedsys", Font.BOLD, 20));
+    cp.add(btnHack);
     // Ende Komponenten
     
     setVisible(true);
@@ -81,5 +94,9 @@ public class gui3_missinf extends JFrame {
     new gui3_missinf("gui3_missinf");
   } // end of main
   
+  public void btnHack_ActionPerformed(ActionEvent evt) {
+    // TODO hier Quelltext einfügen
+  } // end of btnHack_ActionPerformed
+
   // Ende Methoden
 } // end of class gui3_missinf
