@@ -6,8 +6,8 @@ public abstract class MiniGame extends JFrame {
 	// das ist die "Mutterklasse" für jedes Minigame
 	
 	public MiniGame(String titel) {
-		// hier wird der Konstruktor von JFrame aufgerufen und der
-		// Titel des Fensters/der Name des Minigames übergeben
+		// Hier wird der Konstruktor von JFrame aufgerufen und der
+		// Titel des Fensters/der Name des Minigames übergeben.
 		super(titel);
 	}
 	
