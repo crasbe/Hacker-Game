@@ -4,17 +4,17 @@
   * @author 
   */
 
-public class gui4_charinf extends JFrame {
+public class GuiCharInf extends JFrame {
   // Anfang Attribute
   private JTextArea txtaCharname = new JTextArea("");
-    private JScrollPane txtaCharnameScrollPane = new JScrollPane(txtaCharname);
+  private JScrollPane txtaCharnameScrollPane = new JScrollPane(txtaCharname);
   private JTextArea txtaKurzbeschr = new JTextArea("");
-    private JScrollPane txtaKurzbeschrScrollPane = new JScrollPane(txtaKurzbeschr);
+  private JScrollPane txtaKurzbeschrScrollPane = new JScrollPane(txtaKurzbeschr);
   private JTextArea txtaAttribute = new JTextArea("");
-    private JScrollPane txtaAttributeScrollPane = new JScrollPane(txtaAttribute);
+  private JScrollPane txtaAttributeScrollPane = new JScrollPane(txtaAttribute);
   // Ende Attribute
   
-  public gui4_charinf(String title) { 
+  public GuiCharInf(String title) { 
     // Frame-Initialisierung
     super(title);
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -55,13 +55,13 @@ public class gui4_charinf extends JFrame {
     // Ende Komponenten
     
     setVisible(true);
-  } // end of public gui4_charinf
+  } // end of public GuiCharInf
   
   // Anfang Methoden
   
   public static void main(String[] args) {
-    new gui4_charinf("gui4_charinf");
+    new GuiCharInf("Charakter Information");
   } // end of main
   
   // Ende Methoden
-} // end of class gui4_charinf
+} // end of class GuiCharInf
