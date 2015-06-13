@@ -11,20 +11,20 @@ import javax.swing.event.*;
   * @author 
   */
 
-public class gui2_hub extends JFrame {
+public class GuiHub extends JFrame {
   // Anfang Attribute
-    private DefaultComboBoxModel jComboBox1Model = new DefaultComboBoxModel();
+  private DefaultComboBoxModel jComboBox1Model = new DefaultComboBoxModel();
   private JButton btnCharinfo = new JButton();
   private JButton btnBasis = new JButton();
   private JList lstHauptmiss = new JList();
-    private DefaultListModel lstHauptmissModel = new DefaultListModel();
-    private JScrollPane lstHauptmissScrollPane = new JScrollPane(lstHauptmiss);
+  private DefaultListModel lstHauptmissModel = new DefaultListModel();
+  private JScrollPane lstHauptmissScrollPane = new JScrollPane(lstHauptmiss);
   private JList lstNebenmiss = new JList();
-    private DefaultListModel lstNebenmissModel = new DefaultListModel();
-    private JScrollPane lstNebenmissScrollPane = new JScrollPane(lstNebenmiss);
+  private DefaultListModel lstNebenmissModel = new DefaultListModel();
+  private JScrollPane lstNebenmissScrollPane = new JScrollPane(lstNebenmiss);
   // Ende Attribute
   
-  public gui2_hub(String title) { 
+  public GuiHub(String title) { 
     // Frame-Initialisierung
     super(title);
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -93,12 +93,12 @@ public class gui2_hub extends JFrame {
     // Ende Komponenten
     
     setVisible(true);
-  } // end of public gui2_hub
+  } // end of public GuiHub
   
   // Anfang Methoden
   
   public static void main(String[] args) {
-    new gui2_hub("gui2_hub");
+    new GuiHub("HUB");
   } // end of main
   
   public void btnCharinfo_ActionPerformed(ActionEvent evt) {
