@@ -11,21 +11,21 @@ import javax.swing.event.*;
   * @author 
   */
 
-public class gui3_missinf extends JFrame {
+public class GuiMissInf extends JFrame {
   // Anfang Attribute
   private JTextArea jTextArea1 = new JTextArea("");
-    private JScrollPane jTextArea1ScrollPane = new JScrollPane(jTextArea1);
+  private JScrollPane jTextArea1ScrollPane = new JScrollPane(jTextArea1);
   private JTextArea jTextArea2 = new JTextArea("");
-    private JScrollPane jTextArea2ScrollPane = new JScrollPane(jTextArea2);
+  private JScrollPane jTextArea2ScrollPane = new JScrollPane(jTextArea2);
   private JTextArea jTextArea3 = new JTextArea("");
-    private JScrollPane jTextArea3ScrollPane = new JScrollPane(jTextArea3);
+  private JScrollPane jTextArea3ScrollPane = new JScrollPane(jTextArea3);
   private JTextArea jTextArea4 = new JTextArea("");
-    private JScrollPane jTextArea4ScrollPane = new JScrollPane(jTextArea4);
+  private JScrollPane jTextArea4ScrollPane = new JScrollPane(jTextArea4);
   private JSeparator jSeparator1 = new JSeparator();
   private JButton btnHack = new JButton();
   // Ende Attribute
   
-  public gui3_missinf(String title) { 
+  public GuiMissInf(String title) { 
     // Frame-Initialisierung
     super(title);
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -91,7 +91,7 @@ public class gui3_missinf extends JFrame {
   // Anfang Methoden
   
   public static void main(String[] args) {
-    new gui3_missinf("gui3_missinf");
+    new GuiMissInf("Mission Information");
   } // end of main
   
   public void btnHack_ActionPerformed(ActionEvent evt) {
