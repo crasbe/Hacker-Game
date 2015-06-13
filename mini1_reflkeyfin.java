@@ -55,7 +55,7 @@ public class ReflKey extends JFrame {
     }
   };
   
-  private Timer tm = new Timer(300, buchAnz);
+  private Timer tm = new Timer(1000, buchAnz);
   private JTextField achtung = new JTextField();
   // Ende Attribute
   //tm.addActionListener(ActionListener buchstabenAnzeigen1);
