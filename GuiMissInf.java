@@ -92,4 +92,4 @@ public class GuiMissInf extends JFrame {
 	} // end of btnHack_ActionPerformed
 
 	// Ende Methoden
-} // end of class gui3_missinf
+} // end of class gui3_missin
