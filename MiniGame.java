@@ -6,8 +6,8 @@ public abstract class MiniGame extends JFrame {
 	// das ist die "Mutterklasse" für jedes Minigame
 	
 	public MiniGame(String titel) {
-		// Hier wird der Konstruktor von JFrame aufgerufen und der
-		// Titel des Fensters/der Name des Minigames übergeben.
+		// hier wird der Konstruktor von JFrame aufgerufen und der
+		// Titel des Fensters/der Name des Minigames übergeben
 		super(titel);
 	}
 	
@@ -15,6 +15,17 @@ public abstract class MiniGame extends JFrame {
 	// z.B. fürs Füllen von Rechenaufgaben.
 	// Jedes Minigame muss diese Methode implementieren.
 	public void initialisieren() {};
+	
+	// Diese Methode wird so lange aufgerufen, bis der Rückgabewert
+	// auf "true" wechselt.
+	// Dann wird "anzahlVersuche" aufgerufen, um die Anzahl der
+	// Versuche, die bis zur Lösung gebraucht wurden, aufgerufen.
+	public boolean erfolgreichGeloest() {
+		return false;
+	};
+	public int anzahlVersuche() {
+		return 0;
+	}
 	
 	// jedes Minigame muss das Attribut "schwierigkeit" implementieren,
 	// mit dem entschieden wird, welches Spiel für einen Hackvorgang
