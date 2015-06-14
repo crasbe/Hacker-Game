@@ -1,9 +1,16 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
-public class GuiMissInf extends JFrame {
+/**
+ *
+ * Beschreibung
+ *
+ * @version 1.0 vom 11.06.2015
+ * @author
+ */
+
+public class GuiMissInf extends AbstractGui {
 	// Anfang Attribute
 	private JTextArea jTextArea1 = new JTextArea("");
 	private JScrollPane jTextArea1ScrollPane = new JScrollPane(jTextArea1);
@@ -77,19 +84,18 @@ public class GuiMissInf extends JFrame {
 		btnHack.setFont(new Font("Fixedsys", Font.BOLD, 20));
 		cp.add(btnHack);
 		// Ende Komponenten
-
-		setVisible(true);
+		
 	} // end of public gui3_missinf
 
 	// Anfang Methoden
 
 	public static void main(String[] args) {
-		new GuiMissInf("Mission Information");
+		new GuiMissInf("Mission Information").guiAnzeigen();;
 	} // end of main
-
+	
 	public void btnHack_ActionPerformed(ActionEvent evt) {
 		// TODO hier Quelltext einfügen
 	} // end of btnHack_ActionPerformed
 
 	// Ende Methoden
-} // end of class gui3_missin
+} // end of class gui3_missinf
