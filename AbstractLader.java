@@ -1,107 +1,72 @@
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.*;
+import java.util.*;
 
-import javax.swing.*;
 
-public class GuiCharInf extends AbstractGui {
-	// Anfang Attribute
 
-	private static String titel = "Charakter Information";
+public abstract class AbstractLader {
+	// die Properties sind eine ganz nette Methode, die Charakter-Eigenschaften
+	// nicht hardcoded in den Sourcecode einzubauen und damit auch sehr leicht
+	// Speicherstände zu ermöglichen
 	
-	private JTextArea txtaCharname = new JTextArea("");
-	private JScrollPane txtaCharnameScrollPane = new JScrollPane(txtaCharname);
-	private JTextArea txtaKurzbeschr = new JTextArea("");
-	private JScrollPane txtaKurzbeschrScrollPane = new JScrollPane(
-			txtaKurzbeschr);
-	private JTextArea txtaAttribute = new JTextArea("");
-	private JScrollPane txtaAttributeScrollPane = new JScrollPane(txtaAttribute);
-	private JButton btnBack = new JButton();
-
-	// Ende Attribute
-
-	public GuiCharInf(Charakter charakter) {
-		super();
 	
-		String name 			=    charakter.getName();
-		String money 			= ""+charakter.getMoney();
-		String skills 			= ""+charakter.getSkills();
-		String matebedarf		= ""+charakter.getMatebedarf();
-		String schlafbedarf 	= ""+charakter.getSchlafbedarf();
-		String serverleistung 	= ""+charakter.getServerleistung();
-		String kurzbeschreibung = ""+charakter.getKurzbeschreibung();
+	
+	// Speicher für die geöffneten Properties
+	protected List<Properties> props = new ArrayList<Properties>();
+	
+	public AbstractLader(String ladeort) {
+		// wieder der gleiche Hack wie bei den Charakteren..
+		String path;
 		
+		if(System.getProperty("os.name").equals("Linux")) {
+			path = System.getProperty("user.dir")+"/src/"+ladeort+"/"; 
+		} else if(System.getProperty("os.name").equals("Windows")) {
+			path = System.getProperty("user.dir")+"\\"+ladeort+"\\";
+		} else {
+			path = System.getProperty("user.dir")+"/"+ladeort+"/";
+		}
 		
-		// Frame-Initialisierung
-		setTitle(titel);
-		int frameWidth = 487;
-		int frameHeight = 297;
-		setSize(frameWidth, frameHeight);
-		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (d.width - getSize().width) / 2;
-		int y = (d.height - getSize().height) / 2;
-		setLocation(x, y);
-		setResizable(false);
-		Container cp = getContentPane();
-		cp.setLayout(null);
-		// Anfang Komponenten
-
-		txtaCharnameScrollPane.setBounds(24, 24, 140, 49);
-		txtaCharname.setBackground(Color.BLACK);
-		txtaCharname.setEditable(false);
-		txtaCharname.setText("\n "+name);
-		txtaCharname.setFont(new Font("Fixedsys", Font.PLAIN, 12));
-		txtaCharname.setForeground(Color.GREEN);
-		cp.add(txtaCharnameScrollPane);
-		txtaKurzbeschrScrollPane.setBounds(24, 88, 140, 145);
-		txtaKurzbeschr.setEditable(false);
-		txtaKurzbeschr.setBackground(Color.BLACK);
-		txtaKurzbeschr.setText( "Kurzbeschreibung:\n"+
-								"----------------------------\n"+kurzbeschreibung);
-		txtaKurzbeschr.setFont(new Font("Fixedsys", Font.PLAIN, 12));
-		txtaKurzbeschr.setForeground(Color.GREEN);
-		cp.add(txtaKurzbeschrScrollPane);
-		txtaAttributeScrollPane.setBounds(184, 24, 265, 175);
-		txtaAttribute.setEditable(false);
-		txtaAttribute.setBackground(Color.BLACK);
-		txtaAttribute.setText(	"Charakter Attribute:"+
-								"\n-------------------------------"+
-								"\n - Money: "+money+
-								"\n - Serverleistung: "+serverleistung+
-								"\n - Skills: "+skills+
-								"\n - Matebedarf: "+matebedarf+
-								"\n - Schlafbedarf: "+schlafbedarf);
-		txtaAttribute.setFont(new Font("Fixedsys", Font.PLAIN, 12));
-		txtaAttribute.setForeground(Color.GREEN);
-		cp.add(txtaAttributeScrollPane);
-		btnBack.setBounds(336, 208, 113, 25);
-		btnBack.setText("back to HUB");
-		btnBack.setMargin(new Insets(2, 2, 2, 2));
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				btnBack_ActionPerformed(evt);
+		// zuerst werden alle Properties-Dateien aus dem Ordner "missionen" gesucht
+		List<String> propDateien = new ArrayList<String>();
+		 
+		File f = new File(path);		// hier wird der Ordner geöffnet
+		File[] files = f.listFiles();	// und hier der Inhalt gelesen
+		if(files != null) {
+			// wenn der Order lesbar war, enthält das Attribut files die Dateien
+			for(int i = 0; i < files.length; i++) {
+				if(files[i].isFile()) {
+					// wenn es eine Datei und kein Ordner ist, wird die Datei
+					// dem Array hinzugefügt
+					// TODO: Überprüfung der Dateiendung
+					propDateien.add(files[i].getAbsolutePath());
+				}
 			}
-		});
-		btnBack.setFont(new Font("Fixedsys", Font.PLAIN, 12));
-		btnBack.setForeground(Color.GREEN);
-		btnBack.setBackground(Color.BLACK);
-		cp.add(btnBack);
+		}
 		
-		cp.setBackground(Color.BLACK);
-		// Ende Komponenten
-
-	} // end of public GuiCharInf
-
-	// Anfang Methoden
-
-	public static void main(String[] args) {
-		new GuiCharInf(new CharakterLader(false).getCharaktere().get(0)).setVisible(true);
-	} // end of main
-
-	private void btnBack_ActionPerformed(ActionEvent evt) {
-		setVisible(false);
+		// hier werden die Properties-Dateien geladen und in das entsprechende Array
+		// gespeichert
+		for(int i = 0; i < propDateien.size(); i++) {
+			try {
+				FileInputStream in = new FileInputStream(propDateien.get(i));
+				
+				try {
+					// tmpprop ist die aktuell geladene Properties-Datei
+					Properties tmpprop = new Properties();
+					tmpprop.load(in);
+					
+					props.add(tmpprop); // die geladenen Properties in das Mutterschiff beamen
+					
+					in.close(); // den FileInputStream nach Gebrauch wieder schließen
+				} catch (IOException e) {
+					System.out.println("ERROR: Datei ist nicht lesbar!");
+					e.printStackTrace();
+					System.exit(-1);
+				}
+				
+			} catch (FileNotFoundException e) {
+				System.out.println("ERROR: Datei nicht gefunden!");
+				e.printStackTrace();
+				System.exit(-1);
+			}
+		}
 	}
-
-	
-	// Ende Methoden
-} // end of class GuiCharInf
+}
