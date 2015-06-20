@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.event.*;
 
 import java.util.*;
 
@@ -10,11 +9,14 @@ import java.util.*;
 public class GuiHub extends AbstractGui {
 	
 	private java.util.List<Mission> missionen = new ArrayList<Mission>();
+	private Mission missionAusgewaehlt;
+	private AbstractGui guiMissInf;
+
 	
 	// Anfang Attribute
 	private static String titel = "HUB";
 	
-	private DefaultComboBoxModel jComboBox1Model = new DefaultComboBoxModel();
+	//private DefaultComboBoxModel jComboBox1Model = new DefaultComboBoxModel();
 	private JButton btnCharinfo = new JButton();
 	private JButton btnBasis = new JButton();
 	private JList lstHauptmiss = new JList();
@@ -78,29 +80,91 @@ public class GuiHub extends AbstractGui {
 		cp.setBackground(Color.BLACK);
 		lstHauptmiss.setModel(lstHauptmissModel);
 		lstHauptmissScrollPane.setBounds(24, 24, 337, 57);
-		lstHauptmissModel.addElement(" - NSA Server übernehmen");
-		lstHauptmissModel.addElement(" - Merkels Nacktfotos vernichten");
-		lstHauptmissModel.addElement("");
 		lstHauptmiss.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lstHauptmiss.setFont(new Font("Fixedsys", Font.PLAIN, 12));
 		lstHauptmiss.setForeground(Color.GREEN);
 		lstHauptmiss.setBackground(Color.BLACK);
+		
 		lstHauptmiss.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		cp.add(lstHauptmissScrollPane);
 		lstNebenmiss.setModel(lstNebenmissModel);
 		lstNebenmissScrollPane.setBounds(24, 104, 337, 57);
-		lstNebenmissModel.addElement(" - Pizza liefern lassen");
-		lstNebenmissModel.addElement(" - Fahndungsinformationen manipulieren");
-		lstNebenmissModel.addElement(" - PornHub Premium Account hacken");
-		lstNebenmissModel.addElement(" - Matelieferungen umlenken");
 		lstNebenmiss.setFont(new Font("Fixedsys", Font.PLAIN, 12));
 		lstNebenmiss.setForeground(Color.GREEN);
 		lstNebenmiss.setBackground(Color.BLACK);
 		lstNebenmiss.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		cp.add(lstNebenmissScrollPane);
+		
+		lstHauptmiss.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lst_MousePressed(e, "hauptmiss");
+			}
+		});
+		lstNebenmiss.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lst_MousePressed(e, "nebenmiss");
+			}
+		});
+		
+		for(int i = 0; i < missionen.size(); i++) {
+			if(missionen.get(i).isHauptmission()) {
+				lstHauptmissModel.addElement(missionen.get(i).getName());
+			} else {
+				lstNebenmissModel.addElement(missionen.get(i).getName());
+			}
+		}
+		
 		// Ende Komponenten
 
 	} // end of public GuiHub
+
+	@Override
+	public boolean isVisible() {
+		if(guiMissInf != null) {
+			if(guiMissInf.isVisible() == false) {
+				if(guiMissInf.terminiert == false) {
+					guiMissInf.dispose();
+					setVisible(false);
+					return false;
+				}
+			}
+		}
+		
+		return super.isVisible();
+	}
+
+	private void lst_MousePressed(MouseEvent e, String lst) {
+		String element = "";
+		
+		// Über den String lst kann ich herausfinden, welche Liste das Event getriggert hat.
+		// Das ginge zwar auch mit zwei verschiedenen Methoden, wäre aber redundanter Code.
+		if(lst == "hauptmiss") {
+			element = lstHauptmiss.getSelectedValue().toString();
+			lstNebenmiss.clearSelection();
+		} else if(lst == "nebenmiss") {
+			element = lstNebenmiss.getSelectedValue().toString();
+			lstHauptmiss.clearSelection();
+		} else {
+			System.out.println("Wo zum Teufel kam das Event her?");
+			System.exit(-1);
+		}
+		
+		for(int i = 0; i < missionen.size(); i++) {
+			if(missionen.get(i).getName().equals(element)) {
+				if(guiMissInf != null) {
+					if(guiMissInf.isVisible()) {
+						guiMissInf.guiAusblenden();
+					}
+				}
+				guiMissInf = new GuiMissInf(missionen.get(i));
+				missionAusgewaehlt = missionen.get(i);
+				guiMissInf.setVisible(true);
+			}
+		}
+		
+	}
 
 	// Anfang Methoden
 
@@ -108,6 +172,10 @@ public class GuiHub extends AbstractGui {
 		this.guiCharInf = new GuiCharInf(charakter);
 	}
 
+	public Mission getAusgewaehlteMission() {
+		return missionAusgewaehlt;
+	}
+	
 	public void btnCharinfo_ActionPerformed(ActionEvent evt) {
 		guiCharInf.setVisible(true);
 	}
