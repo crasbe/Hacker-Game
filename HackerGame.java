@@ -1,38 +1,58 @@
 
-public class HackerGame {
+import java.util.*;
 
+public class HackerGame {
+	// Hauptklasse des Spiels mit dem das Spiel auch gestartet wird
 	
-	private static Charakter charakter1;
-	private static Charakter charakter2;
-	private static Charakter charakter3;
 	private static Charakter charakterSpiel; 	// der Charakter, mit dem gespielt wird
 												// #playwithme
-	
 	private static AbstractGui guiCharAusw;
+	private static AbstractGui guiHub;
 	
 	
 	public static void main(String[] args) {
-		charakter1 = new Charakter("xXgr0nkhcrafter01Xx");
-		charakter2 = new Charakter("Herr Von Frass");
-		charakter3 = new Charakter("Mister X");
+		// die Charaktere laden
+		List<Charakter> defaultChars = new CharakterLader(false).getCharaktere();
+		List<Charakter> saveChars = new CharakterLader(true).getCharaktere();
 		
-		guiCharAusw = new GuiCharAusw(charakter1, charakter2, charakter3);
+		// hier ist die Charakter Auswahl GUI aktiv
+		guiCharAusw = new GuiCharAusw(defaultChars, saveChars);
+		guiCharAusw.setVisible(true);
+		warten(guiCharAusw);
+		guiCharAusw.setVisible(false);
+		charakterSpiel = ((GuiCharAusw) guiCharAusw).getCharakterAuswahl();
 		
-		guiCharAusw.guiAnzeigen();
+		// hier ist die Hub Gui aktiv
+		guiHub = new GuiHub(new MissionLader().getMissionen());
+		guiHub.initialisieren(charakterSpiel);
+		guiHub.setVisible(true);
+		warten(guiHub);
+
 		
-		while(guiCharAusw.schliessMich == false) {
+		System.exit(0);
+	}
+	
+	public static void warten(AbstractGui gui) {
+		// Das GUI-System funktioniert so, dass wenn ein Fenster
+		// nicht mehr sichtbar ist, angenommen wird, dass es seine
+		// Aufgabe erfüllt hat ODER es beendet wurde.
+		
+		// Warte, bis das Fenster nicht mehr sichtbar ist.
+		while(gui.isVisible() == true) {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		};
-		// warte, bis die Charakter Auswahl fertig ist
 		
-		guiCharAusw.guiAusblenden();
-		charakterSpiel = ((GuiCharAusw) guiCharAusw).getCharakterAuswahl();
-		
-		System.exit(0);
+		if(gui.terminiert == true) {
+			// Wenn das Fenster mit Hilfe des roten X geschlossen wurde,
+			// ist das Attribut "terminiert" gesetzt und das Programm
+			// wird beendet.
+			
+			// TODO: Abspeichern einfügen.
+			System.exit(0);
+		}
 	}
-
 }
