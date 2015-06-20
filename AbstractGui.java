@@ -32,6 +32,11 @@ public abstract class AbstractGui extends JFrame {
 		});
 	}
 	
+	public void guiAusblenden() {
+		setVisible(false);
+		dispose();
+	}
+	
 	public void initialisieren() {};
 	
 	public void initialisieren(Charakter charakter) {};
