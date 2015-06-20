@@ -21,17 +21,19 @@ public class GuiCharInf extends AbstractGui {
 	// Ende Attribute
 
 	public GuiCharInf(Charakter charakter) {
-		// Frame-Initialisierung
-		super(titel);
+		super();
 	
 		String name 			=    charakter.getName();
 		String money 			= ""+charakter.getMoney();
 		String skills 			= ""+charakter.getSkills();
 		String matebedarf		= ""+charakter.getMatebedarf();
 		String schlafbedarf 	= ""+charakter.getSchlafbedarf();
-		String serverleistung 	= ""+charakter.getServerleistung();		
+		String serverleistung 	= ""+charakter.getServerleistung();
+		String kurzbeschreibung = ""+charakter.getKurzbeschreibung();
 		
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		
+		// Frame-Initialisierung
+		setTitle(titel);
 		int frameWidth = 487;
 		int frameHeight = 297;
 		setSize(frameWidth, frameHeight);
@@ -44,17 +46,18 @@ public class GuiCharInf extends AbstractGui {
 		cp.setLayout(null);
 		// Anfang Komponenten
 
-		txtaCharnameScrollPane.setBounds(24, 24, 129, 49);
+		txtaCharnameScrollPane.setBounds(24, 24, 140, 49);
 		txtaCharname.setBackground(Color.BLACK);
 		txtaCharname.setEditable(false);
 		txtaCharname.setText("\n "+name);
 		txtaCharname.setFont(new Font("Fixedsys", Font.PLAIN, 12));
 		txtaCharname.setForeground(Color.GREEN);
 		cp.add(txtaCharnameScrollPane);
-		txtaKurzbeschrScrollPane.setBounds(24, 88, 129, 145);
+		txtaKurzbeschrScrollPane.setBounds(24, 88, 140, 145);
 		txtaKurzbeschr.setEditable(false);
 		txtaKurzbeschr.setBackground(Color.BLACK);
-		txtaKurzbeschr.setText("Kurzbeschr.");
+		txtaKurzbeschr.setText( "Kurzbeschreibung:\n"+
+								"----------------------------\n"+kurzbeschreibung);
 		txtaKurzbeschr.setFont(new Font("Fixedsys", Font.PLAIN, 12));
 		txtaKurzbeschr.setForeground(Color.GREEN);
 		cp.add(txtaKurzbeschrScrollPane);
@@ -92,12 +95,13 @@ public class GuiCharInf extends AbstractGui {
 	// Anfang Methoden
 
 	public static void main(String[] args) {
-		new GuiCharInf(new Charakter("Mister X")).guiAnzeigen();;
+		new GuiCharInf(new CharakterLader(false).getCharaktere().get(0)).setVisible(true);
 	} // end of main
 
 	private void btnBack_ActionPerformed(ActionEvent evt) {
-		schliessMich = true;
+		setVisible(false);
 	}
+
 	
 	// Ende Methoden
 } // end of class GuiCharInf
