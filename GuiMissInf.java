@@ -54,12 +54,15 @@ public class GuiMissInf extends AbstractGui {
 		cp.setLayout(null);
 		
 		// Anfang Komponenten
+		taMissName.setEditable(false);
 		taMissNameScrollPane.setBounds(16, 24, 177, 57);
 		taMissName.setBackground(Color.BLACK);
 		taMissName.setText("\n   "+name);
 		taMissName.setFont(new Font("Fixedsys", Font.PLAIN, 18));
 		taMissName.setForeground(Color.GREEN);
 		cp.add(taMissNameScrollPane);
+		
+		taBeschreibung.setEditable(false);
 		taBeschreibungScrollPane.setBounds(16, 96, 177, 177);
 		taBeschreibung.setBackground(Color.BLACK);
 		taBeschreibung.setText(	"Beschreibung:\n"+
@@ -68,6 +71,8 @@ public class GuiMissInf extends AbstractGui {
 		taBeschreibung.setForeground(Color.GREEN);
 		taBeschreibung.setFont(new Font("Fixedsys", Font.PLAIN, 12));
 		cp.add(taBeschreibungScrollPane);
+		
+		taInfoVor.setEditable(false);
 		taInfoVorScrollPane.setBounds(216, 24, 361, 73);
 		taInfoVor.setBackground(Color.BLACK);
 		taInfoVor.setText(	" - Schwierigkeit: "+schwierigkeit+
@@ -76,6 +81,8 @@ public class GuiMissInf extends AbstractGui {
 		taInfoVor.setFont(new Font("Fixedsys", Font.PLAIN, 12));
 		taInfoVor.setForeground(Color.GREEN);
 		cp.add(taInfoVorScrollPane);
+		
+		taInfoNach.setEditable(false);
 		taInfoNachScrollPane.setBounds(216, 128, 361, 73);
 		taInfoNach.setBackground(Color.BLACK);
 		taInfoNach.setText(	" - Gewinn: "+gewinn+
@@ -104,7 +111,7 @@ public class GuiMissInf extends AbstractGui {
 		cp.add(btnHack);
 		// Ende Komponenten
 		
-	} // end of public gui3_missinf
+	}
 
 	// Anfang Methoden
 
@@ -113,7 +120,7 @@ public class GuiMissInf extends AbstractGui {
 	} // end of main
 	
 	public void btnHack_ActionPerformed(ActionEvent evt) {
-		// TODO hier Quelltext einfügen
+		setVisible(false);
 	} // end of btnHack_ActionPerformed
 
 	
