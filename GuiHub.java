@@ -9,7 +9,7 @@ import java.util.*;
 
 public class GuiHub extends AbstractGui {
 	
-	private java.util.List<Hackvorgang> hacks = new ArrayList<Hackvorgang>();
+	private java.util.List<Mission> missionen = new ArrayList<Mission>();
 	
 	// Anfang Attribute
 	private static String titel = "HUB";
@@ -24,15 +24,17 @@ public class GuiHub extends AbstractGui {
 	private DefaultListModel lstNebenmissModel = new DefaultListModel();
 	private JScrollPane lstNebenmissScrollPane = new JScrollPane(lstNebenmiss);
 
+	private AbstractGui guiCharInf;
+	
 	// Ende Attribute
 
-	public GuiHub(java.util.List<Hackvorgang> hacks) {
+	public GuiHub(java.util.List<Mission> missionen) {
+		super();
+		
+		this.missionen = missionen;
+		
 		// Frame-Initialisierung
-		super(titel);
-		
-		this.hacks = hacks;
-		
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setTitle(titel);
 		int frameWidth = 725;
 		int frameHeight = 230;
 		setSize(frameWidth, frameHeight);
@@ -102,17 +104,17 @@ public class GuiHub extends AbstractGui {
 
 	// Anfang Methoden
 
-	public static void main(String[] args) {
-		new GuiHub(new ArrayList<Hackvorgang>()).guiAnzeigen();
-	} // end of main
+	public void initialisieren(Charakter charakter) {
+		this.guiCharInf = new GuiCharInf(charakter);
+	}
 
 	public void btnCharinfo_ActionPerformed(ActionEvent evt) {
-		// TODO hier Quelltext einfügen
-	} // end of btnCharinfo_ActionPerformed
+		guiCharInf.setVisible(true);
+	}
 
 	public void btnBasis_ActionPerformed(ActionEvent evt) {
 		// TODO hier Quelltext einfügen
 	} // end of btnBasis_ActionPerformed
 
 	// Ende Methoden
-} // end of class gui2_hub
+}
