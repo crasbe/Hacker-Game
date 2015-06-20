@@ -1,3 +1,5 @@
+import java.util.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -12,23 +14,34 @@ import javax.swing.*;
 
 public class GuiMissInf extends AbstractGui {
 	// Anfang Attribute
-	private JTextArea jTextArea1 = new JTextArea("");
-	private JScrollPane jTextArea1ScrollPane = new JScrollPane(jTextArea1);
-	private JTextArea jTextArea2 = new JTextArea("");
-	private JScrollPane jTextArea2ScrollPane = new JScrollPane(jTextArea2);
-	private JTextArea jTextArea3 = new JTextArea("");
-	private JScrollPane jTextArea3ScrollPane = new JScrollPane(jTextArea3);
-	private JTextArea jTextArea4 = new JTextArea("");
-	private JScrollPane jTextArea4ScrollPane = new JScrollPane(jTextArea4);
+	private String titel = "Mission Information";
+	
+	private JTextArea taMissName = new JTextArea("");
+	private JScrollPane taMissNameScrollPane = new JScrollPane(taMissName);
+	private JTextArea taBeschreibung = new JTextArea("");
+	private JScrollPane taBeschreibungScrollPane = new JScrollPane(taBeschreibung);
+	private JTextArea taInfoVor = new JTextArea("");
+	private JScrollPane taInfoVorScrollPane = new JScrollPane(taInfoVor);
+	private JTextArea taInfoNach = new JTextArea("");
+	private JScrollPane taInfoNachScrollPane = new JScrollPane(taInfoNach);
 	private JSeparator jSeparator1 = new JSeparator();
 	private JButton btnHack = new JButton();
 
 	// Ende Attribute
 
-	public GuiMissInf(String title) {
+	public GuiMissInf(Mission mission) {
+		super();
+
+		String name				= ""+mission.getName();
+		String gewinn			= ""+mission.getGewinn();
+		String kosten			= ""+mission.getKosten();
+		String beschreibung		= ""+mission.getBeschreibung();
+		String schwierigkeit 	= ""+mission.getSchwierigkeit();
+		String skillverbesserung= ""+mission.getSkillverbesserung();
+		
+		
 		// Frame-Initialisierung
-		super(title);
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setTitle(titel);
 		int frameWidth = 624;
 		int frameHeight = 325;
 		setSize(frameWidth, frameHeight);
@@ -39,32 +52,38 @@ public class GuiMissInf extends AbstractGui {
 		setResizable(false);
 		Container cp = getContentPane();
 		cp.setLayout(null);
+		
 		// Anfang Komponenten
-
-		jTextArea1ScrollPane.setBounds(16, 24, 153, 57);
-		jTextArea1.setBackground(Color.BLACK);
-		jTextArea1.setText(" \n   Missionsname");
-		jTextArea1.setFont(new Font("Fixedsys", Font.PLAIN, 18));
-		jTextArea1.setForeground(Color.GREEN);
-		cp.add(jTextArea1ScrollPane);
-		jTextArea2ScrollPane.setBounds(16, 96, 177, 177);
-		jTextArea2.setBackground(Color.BLACK);
-		jTextArea2.setText("Beschreibung\n");
-		jTextArea2.setForeground(Color.GREEN);
-		jTextArea2.setFont(new Font("Fixedsys", Font.PLAIN, 12));
-		cp.add(jTextArea2ScrollPane);
-		jTextArea3ScrollPane.setBounds(216, 24, 361, 73);
-		jTextArea3.setBackground(Color.BLACK);
-		jTextArea3.setText(" - Schwierigkeit: \n - Kosten:\n - ...");
-		jTextArea3.setFont(new Font("Fixedsys", Font.PLAIN, 12));
-		jTextArea3.setForeground(Color.GREEN);
-		cp.add(jTextArea3ScrollPane);
-		jTextArea4ScrollPane.setBounds(216, 128, 361, 73);
-		jTextArea4.setBackground(Color.BLACK);
-		jTextArea4.setText(" - Gewinn:\n - Skillverbesserung:\n - ...");
-		jTextArea4.setFont(new Font("Fixedsys", Font.PLAIN, 12));
-		jTextArea4.setForeground(Color.GREEN);
-		cp.add(jTextArea4ScrollPane);
+		taMissNameScrollPane.setBounds(16, 24, 177, 57);
+		taMissName.setBackground(Color.BLACK);
+		taMissName.setText("\n   "+name);
+		taMissName.setFont(new Font("Fixedsys", Font.PLAIN, 18));
+		taMissName.setForeground(Color.GREEN);
+		cp.add(taMissNameScrollPane);
+		taBeschreibungScrollPane.setBounds(16, 96, 177, 177);
+		taBeschreibung.setBackground(Color.BLACK);
+		taBeschreibung.setText(	"Beschreibung:\n"+
+								"------------------------\n"+
+								beschreibung);
+		taBeschreibung.setForeground(Color.GREEN);
+		taBeschreibung.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+		cp.add(taBeschreibungScrollPane);
+		taInfoVorScrollPane.setBounds(216, 24, 361, 73);
+		taInfoVor.setBackground(Color.BLACK);
+		taInfoVor.setText(	" - Schwierigkeit: "+schwierigkeit+
+							"\n - Kosten: "+kosten+
+							"\n - ...");
+		taInfoVor.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+		taInfoVor.setForeground(Color.GREEN);
+		cp.add(taInfoVorScrollPane);
+		taInfoNachScrollPane.setBounds(216, 128, 361, 73);
+		taInfoNach.setBackground(Color.BLACK);
+		taInfoNach.setText(	" - Gewinn: "+gewinn+
+							"\n - Skillverbesserung: "+skillverbesserung+
+							"\n - ...");
+		taInfoNach.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+		taInfoNach.setForeground(Color.GREEN);
+		cp.add(taInfoNachScrollPane);
 		jSeparator1.setBounds(216, 112, 361, 9);
 		jSeparator1.setBackground(Color.GREEN);
 		jSeparator1.setForeground(Color.GREEN);
@@ -90,12 +109,13 @@ public class GuiMissInf extends AbstractGui {
 	// Anfang Methoden
 
 	public static void main(String[] args) {
-		new GuiMissInf("Mission Information").guiAnzeigen();;
+		new GuiMissInf(new MissionLader().getMissionen().get(0)).setVisible(true);
 	} // end of main
 	
 	public void btnHack_ActionPerformed(ActionEvent evt) {
 		// TODO hier Quelltext einfügen
 	} // end of btnHack_ActionPerformed
 
+	
 	// Ende Methoden
 } // end of class gui3_missinf
