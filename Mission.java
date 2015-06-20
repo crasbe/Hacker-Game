@@ -9,6 +9,7 @@ public class Mission {
 	private int skillverbesserung;
 	private double kosten;
 	private double gewinn;
+	private boolean hauptmission;
 	
 	public Mission(Properties prop) {
 		name = prop.getProperty("name");
@@ -17,6 +18,7 @@ public class Mission {
 		skillverbesserung = Integer.parseInt(prop.getProperty("skillverbesserung"));
 		kosten = Double.parseDouble(prop.getProperty("kosten"));
 		gewinn = Double.parseDouble(prop.getProperty("gewinn"));
+		hauptmission = Boolean.parseBoolean(prop.getProperty("hauptmission"));
 		
 		
 	}
@@ -44,6 +46,10 @@ public class Mission {
 
 	public double getGewinn() {
 		return gewinn;
+	}
+	
+	public boolean isHauptmission() {
+		return hauptmission;
 	}
 
 }
