@@ -54,7 +54,7 @@ public class SpamZiel extends MiniGame {
         spam++;                              // die Spamnachrichtenschübe sind auf eine Anzahl "spam" reduziert
         if (spam == 5) {
           tinm1.stop();
-          tm2.setInitialDelay(2000);         // mit etwas Delay wird der nächste Schub vorbereitet
+          tm2.setInitialDelay(1000);         // mit etwas Delay wird der nächste Schub vorbereitet
           tm2.start();
           x = 500;                           // x und y werden zurückgesetzt damit alle Spamnachrichten den "Fertigstellenbutton"
           y = 250;                           // verdecken
@@ -62,7 +62,7 @@ public class SpamZiel extends MiniGame {
       }
     };
   }; 
-  private Timer tinm1 = new Timer(1000, buchAnz);
+  private Timer tinm1 = new Timer(800, buchAnz);
   private ActionListener resta = new ActionListener() {
     public void actionPerformed(ActionEvent evt){
       spam = 0;                              // dieser zweite Timer hat mehrere Aufgaben: zunächst wird der nächste Spamschub initialisiert
