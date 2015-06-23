@@ -19,7 +19,7 @@ public abstract class AbstractLader {
 		
 		if(System.getProperty("os.name").equals("Linux")) {
 			path = System.getProperty("user.dir")+"/src/"+ladeort+"/"; 
-		} else if(System.getProperty("os.name").equals("Windows")) {
+		} else if(System.getProperty("os.name").contains("Windows")) {
 			path = System.getProperty("user.dir")+"\\"+ladeort+"\\";
 		} else {
 			path = System.getProperty("user.dir")+"/"+ladeort+"/";
