@@ -69,4 +69,7 @@ public abstract class AbstractLader {
 			}
 		}
 	}
+	public List<Properties> getProps() {
+		return props;
+	}
 }
