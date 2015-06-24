@@ -4,7 +4,7 @@ import java.util.*;
 import javax.swing.*;
 
 
-public class TestGame extends MiniGame {
+public class TestGame extends AbstractMiniGame {
 	
 	// Definierung von Titel und Schwierigkeitsgrad
 	// 0 bedeutet "nicht ausführen!"
