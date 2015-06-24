@@ -11,7 +11,7 @@ import javax.swing.event.*;
   * @author 
   */
 
-public class WieZu extends MiniGames {
+public class WieZu extends AbstractMiniGame {
   // Anfang Attribute
   private JRadioButton antw2 = new JRadioButton();
   private JRadioButton antw3 = new JRadioButton();
