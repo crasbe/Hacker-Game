@@ -11,7 +11,7 @@ import javax.swing.event.*;
  * @author
  */
 
-public class ReflKey extends MiniGame {
+public class ReflKey extends AbstractMiniGame {
 	// Anfang Attribut
 	private int kill = 0;
 	private boolean dec = false;
