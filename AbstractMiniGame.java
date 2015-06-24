@@ -2,10 +2,10 @@ import javax.swing.JFrame;
 
 // da Java keine Mehrfachvererbung kann, bekommt einfach jedes Minigame
 // durch seine Mutterklasse den JFrame reingewürgt :)
-public abstract class MiniGame extends JFrame {
+public abstract class AbstractMiniGame extends JFrame {
 	// das ist die "Mutterklasse" für jedes Minigame
 	
-	public MiniGame(String titel) {
+	public AbstractMiniGame(String titel) {
 		// hier wird der Konstruktor von JFrame aufgerufen und der
 		// Titel des Fensters/der Name des Minigames übergeben
 		super(titel);
