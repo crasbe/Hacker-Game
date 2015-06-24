@@ -4,7 +4,7 @@ import java.util.*;
 public class MiniGameLader {
 	
 	// in miniGames werden alle initialisierten MiniGames gespeichert
-	private List<MiniGame> miniGames = new ArrayList<MiniGame>();
+	private List<AbsractMiniGame> miniGames = new ArrayList<AbstractMiniGame>();
 	
 	private Random rand = new Random();
 	
@@ -16,13 +16,13 @@ public class MiniGameLader {
 		
 	}
 	
-	public MiniGame miniGameWaehlen(int schwierigkeit) {
+	public AbstactMiniGame miniGameWaehlen(int schwierigkeit) {
 		// diese Methode gibt ein zufälliges MiniGame-Objekt zurück
 		// welches nach der Schwierigkeit bestimmt wird
 		
 		// dieses Attribut speichert die MiniGames, die nach der
 		// Schwierigkeit her in Frage kommen
-		List<MiniGame> ausgewaehlteMiniGames = new ArrayList<MiniGame>();
+		List<AbstractMiniGame> ausgewaehlteMiniGames = new ArrayList<AbstractMiniGame>();
 		
 		for(int i = miniGames.size(); i > 0; i--) {
 			if(miniGames.get(i).schwierigkeit == schwierigkeit) {
