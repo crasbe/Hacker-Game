@@ -11,7 +11,7 @@ import javax.swing.event.*;
   * @author 
   */
 
-public class SpamZiel extends MiniGame {
+public class SpamZiel extends AbstractMiniGame {
   // Anfang Attribute
   private JTextArea jTextArea1 = new JTextArea("");
   private JScrollPane jTextArea1ScrollPane = new JScrollPane(jTextArea1);
