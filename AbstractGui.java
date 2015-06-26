@@ -1,10 +1,8 @@
-
 import java.awt.event.*;
 
 import javax.swing.*;
 
 public abstract class AbstractGui extends JFrame {
-
 
 	public volatile boolean terminiert = false;
 	
