@@ -1,11 +1,10 @@
-
 import java.util.*;
 
 public class HackerGame {
 	// Hauptklasse des Spiels mit dem das Spiel auch gestartet wird
 	
-	private static Charakter charakterSpiel; 	// der Charakter, mit dem gespielt wird
-												// #playwithme
+	private static Charakter charakterSpiel; 	 // der Charakter, mit dem gespielt wird
+	private static boolean charakterAusgewaehlt = false; // #playwithme
 	private static AbstractGui guiCharAusw;
 	private static AbstractGui guiHub;
 	
@@ -19,20 +18,33 @@ public class HackerGame {
 		guiCharAusw = new GuiCharAusw(defaultChars, saveChars);
 		guiCharAusw.setVisible(true);
 		warten(guiCharAusw);
-		guiCharAusw.setVisible(false);
+		guiCharAusw.guiAusblenden();
 		charakterSpiel = ((GuiCharAusw) guiCharAusw).getCharakterAuswahl();
+		charakterAusgewaehlt = true;
 		
 		// hier ist die Hub Gui aktiv
-		guiHub = new GuiHub(new MissionLader().getMissionen());
+		guiHub = new GuiHub(new MissionLader(charakterSpiel.getAbgeschMissionen()).getMissionen());
 		guiHub.initialisieren(charakterSpiel);
 		guiHub.setVisible(true);
 		warten(guiHub);
-
+		guiHub.guiAusblenden();
+		
+		Mission missionAuswahl = ((GuiHub) guiHub).getAusgewaehlteMission();
 		
 		System.exit(0);
 	}
 	
-	public static void warten(AbstractGui gui) {
+	private static void speichern() {
+		if(charakterAusgewaehlt == true) {
+			// sobald der Spieler einen Charakter ausgewählt hat, kann auch etwas
+			// gespeichert werden. 
+			class TmpSaver extends AbstractLader {}; // der AbstractLader wird hier
+													 // ein bisschen missbraucht...
+			new TmpSaver().saveProp("savegames", charakterSpiel.getProp());
+		}
+	}
+	
+	private static void warten(AbstractGui gui) {
 		// Das GUI-System funktioniert so, dass wenn ein Fenster
 		// nicht mehr sichtbar ist, angenommen wird, dass es seine
 		// Aufgabe erfüllt hat ODER es beendet wurde.
@@ -49,9 +61,9 @@ public class HackerGame {
 		if(gui.terminiert == true) {
 			// Wenn das Fenster mit Hilfe des roten X geschlossen wurde,
 			// ist das Attribut "terminiert" gesetzt und das Programm
-			// wird beendet.
+			// wird beendet (vorher wird gespeichert).
 			
-			// TODO: Abspeichern einfügen.
+			speichern();
 			System.exit(0);
 		}
 	}
