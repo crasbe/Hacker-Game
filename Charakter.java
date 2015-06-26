@@ -1,67 +1,124 @@
-import java.io.*;
 import java.util.*;
-
 
 public class Charakter {
 
-	private double money;
-	private int skills;
-	private int serverleistung;
-	private int schlafbedarf;
-	private int matebedarf;
-	private String name;
-	private String speicherdatum;
-	private String kurzbeschreibung;
+	private Properties prop;
 	
-	public Charakter(Properties props) {		
-		
-		// Auslesen der Informationen der Properties-Datei
-		money = Double.parseDouble(props.getProperty("money"));
-		skills = Integer.parseInt(props.getProperty("skills"));
-		serverleistung = Integer.parseInt(props.getProperty("serverleistung"));
-		schlafbedarf = Integer.parseInt(props.getProperty("schlafbedarf"));
-		matebedarf = Integer.parseInt(props.getProperty("matebedarf"));
-		name = props.getProperty("name");
-		speicherdatum = props.getProperty("speicherdatum");
-		kurzbeschreibung = props.getProperty("kurzbeschreibung");
-		
-
+	public Charakter(Properties prop) {	
+		// Übernehmen der Properties
+		this.prop = prop;
+	}
+	
+	// ein ganzer Haufen getter und setter...
+	public Properties getProp() {
+		return prop;
 	}
 	
 	public double getMoney() {
-		
-		return money;
+		// die Geldmenge aus den Properties auslesen
+		return Double.parseDouble(prop.getProperty("money"));
+	}
+	
+	public void setMoney(double money) {
+		// die Geldmenge in die Properties schreiben
+		prop.setProperty("money", ""+money);
 	}
 	
 	public int getSkills() {
-		
-		return skills;
+		// die Skills aus den Properties auslesen
+		return Integer.parseInt(prop.getProperty("skills"));
+	}
+	
+	public void setSkills(int skills) {
+		// die Skills in die Properties schreiben
+		prop.setProperty("skills", ""+skills);
 	}
 	
 	public int getServerleistung() {
-		
-		return serverleistung;
+		// die Serverleistung aus den Properties auslesen
+		return Integer.parseInt(prop.getProperty("serverleistung"));
+	}
+	
+	public void setServerleistung(int serverleistung) {
+		// die Serverleistung in die Properties schreiben
+		prop.setProperty("serverleistung", ""+serverleistung);
 	}
 	
 	public int getSchlafbedarf() {
-		
-		return schlafbedarf;
+		// den Schlafbedarf aus den Properties auslesen
+		return Integer.parseInt(prop.getProperty("schlafbedarf"));
+	}
+	
+	public void setSchlafbedarf(int schlafbedarf) {
+		// den Schlafbedarf in die Properties schreiben
+		prop.setProperty("schlafbedarf", ""+schlafbedarf);
 	}
 	
 	public int getMatebedarf() {
-		return matebedarf;
+		// den Matebedarf aus den Properties auslesen
+		return Integer.parseInt(prop.getProperty("matebedarf"));
+	}
+	
+	public void setMatebedarf(int matebedarf) {
+		// den Matebedarf in die Properties schreiben
+		prop.setProperty("matebedarf", ""+matebedarf);
 	}
 	
 	public String getName() {
-		
-		return name;
+		// den Namen aus den Properties auslesen
+		return prop.getProperty("name");
+	}
+	
+	public void setName(String name) {
+		// den Namen in die Properties schreiben
+		prop.setProperty("name", name);
 	}
 	
 	public String getSpeicherdatum() {
-		
-		return speicherdatum;
+		// das Speicherdatum aus den Properties auslesen
+		return prop.getProperty("speicherdatum");
 	}
+	
+	public void setSpeicherdatum(String datum) {
+		// das Speicherdatum in die Properties schreiben
+		prop.setProperty("speicherdatum", datum);
+	}
+	
 	public String getKurzbeschreibung() {
-		return kurzbeschreibung;
+		// die Kurzbeschreibung aus den Properties auslesen
+		return prop.getProperty("kurzbeschreibung");
+	}
+	
+	public List<String> getAbgeschMissionen() {
+		// die abgeschlossenen Missionen als Liste aus den Properties auslesen
+		String[] abgeschMissionenTmp = prop.getProperty("abgeschlossen").split(",");
+		List<String> abgeschMissionen = new ArrayList<String>();
+		
+		// TODO: Bessere Methode zur Typenumwandlung
+		if(abgeschMissionenTmp.length > 1) {
+			for(int i = 0; i < abgeschMissionenTmp.length; i++) {
+				abgeschMissionen.add(abgeschMissionenTmp[i]);
+			}
+		}
+		
+		return abgeschMissionen;
+		
+	}
+	
+	public void setAbgeschMissionen(List<String> missionen) {
+		// die abgeschlossenen Missionen in die Properties schreiben
+		// temporärer String, in dem die abgeschlossenen Missionen
+		// durch Kommata getrennt gespeichert werden
+		String tmp = "";
+		
+		for(int i = 0; i < missionen.size(); i++) {
+			tmp += missionen.get(i);
+		}
+		prop.setProperty(	"abgeschlossen", tmp.substring(0, tmp.length()-2));
+	}
+	
+	public void addAbgeschMissionen(String mission) {
+		// den abgeschlossenen Missionen der Properties einen Eintrag hinzufügen
+		prop.setProperty("abgeschlossen", prop.getProperty("abgeschlossen")+","+mission);
 	}
 }
