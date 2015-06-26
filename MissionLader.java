@@ -1,5 +1,3 @@
-
-import java.io.*;
 import java.util.*;
 
 public class MissionLader extends AbstractLader {
@@ -17,6 +15,23 @@ public class MissionLader extends AbstractLader {
 		// Außeredem wird das ja nur einmal aufgerufen :)
 		for(int i = 0; i < props.size(); i++) {
 			missionen.add(new Mission(props.get(i)));
+		}
+	}
+	
+	public MissionLader(List<String> abgeschlossen) {
+		super("missionen");
+		
+		// das ist ein alternativer Konstrukter, der abgeschlossene
+		// Missionen nicht hinzufügt
+		
+		for(int i = 0; i < props.size(); i++) {
+			Mission tmpMission = new Mission(props.get(i));
+			System.out.println(abgeschlossen.isEmpty());
+			if(abgeschlossen.contains(tmpMission.getName())) {
+				continue;
+			} else {
+				missionen.add(tmpMission);
+			}
 		}
 	}
 	
