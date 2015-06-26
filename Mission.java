@@ -1,55 +1,52 @@
-
 import java.util.*;
 
 public class Mission {
 
-	private String name;
-	private String beschreibung;
-	private int schwierigkeit;
-	private int skillverbesserung;
-	private double kosten;
-	private double gewinn;
-	private boolean hauptmission;
+	private Properties prop;
 	
 	public Mission(Properties prop) {
-		name = prop.getProperty("name");
-		beschreibung = prop.getProperty("beschreibung");
-		schwierigkeit = Integer.parseInt(prop.getProperty("schwierigkeit"));
-		skillverbesserung = Integer.parseInt(prop.getProperty("skillverbesserung"));
-		kosten = Double.parseDouble(prop.getProperty("kosten"));
-		gewinn = Double.parseDouble(prop.getProperty("gewinn"));
-		hauptmission = Boolean.parseBoolean(prop.getProperty("hauptmission"));
-		
-		
+		// die Properties übernehmen
+		this.prop = prop;
 	}
 
-	// ein großer Haufen getter-Methoden
+	// ein großer Haufen getter und setter...
+	public Properties getProp() {
+		// die Properties zurückgeben
+		return prop;
+	}
+	
 	public int getSkillverbesserung() {
-		return skillverbesserung;
+		// die Skillverbesserung aus den Properties auslesen
+		return Integer.parseInt(prop.getProperty("skillverbesserung"));
 	}
 
 	public String getName() {
-		return name;
+		// den Namen aus den Properties auslesen
+		return prop.getProperty("name");
 	}
 
 	public String getBeschreibung() {
-		return beschreibung;
+		// die Beschreibung aus den Properties auslesen
+		return prop.getProperty("beschreibung");
 	}
 
 	public int getSchwierigkeit() {
-		return schwierigkeit;
+		// die Schwierigkeit aus den Properties auslesen
+		return Integer.parseInt(prop.getProperty("schwierigkeit"));
 	}
 
 	public double getKosten() {
-		return kosten;
+		// die Kosten aus den Properties auslesen
+		return Double.parseDouble(prop.getProperty("kosten"));
 	}
 
 	public double getGewinn() {
-		return gewinn;
+		// den Gewinn aus den Properties auslesen
+		return Double.parseDouble(prop.getProperty("gewinn"));
 	}
 	
 	public boolean isHauptmission() {
-		return hauptmission;
+		// zurückgeben, ob die Mission eine Hauptmission ist
+		return Boolean.parseBoolean(prop.getProperty("hauptmission"));
 	}
-
 }
