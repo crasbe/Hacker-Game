@@ -1,14 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-import javax.swing.*;
 
+import javax.swing.*;
+import javax.swing.Timer;
 
 public class TestGame extends AbstractMiniGame {
 	
 	// Definierung von Titel und Schwierigkeitsgrad
-	// 0 bedeutet "nicht ausführen!"
-	public int schwierigkeit = 0;
 	private static String titel = "Testspiel";
 	
 	// interner Krams für das Beispiel
@@ -24,12 +23,15 @@ public class TestGame extends AbstractMiniGame {
 	private JLabel operator = new JLabel();
 	private JButton abschickenButton = new JButton();
 	
-	public TestGame() {
+	public TestGame(int schwierigkeit) {
 		// das Schwierigkeitslevel der abtrakten Mutterklasse
 		// initialisieren
 		
 		// Frame-Initialisierung
 	    super(titel);
+	    
+	    this.schwierigkeit = schwierigkeit;
+	    
 	    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	    int frameWidth = 214; 
 	    int frameHeight = 156;
@@ -69,8 +71,14 @@ public class TestGame extends AbstractMiniGame {
 	    abschickenButton.setBounds(104, 88, 89, 25);
 	    abschickenButton.setText("OK!");
 	    abschickenButton.setMargin(new Insets(2, 2, 2, 2));
-	    abschickenButton.addActionListener(new ActionListener() { 
-	    	public void actionPerformed(ActionEvent evt) { 
+	    abschickenButton.addActionListener(new ActionListener() {
+	    	// hier ist der interessante Teil
+	    	Timer tm = new Timer(5000, this);
+	    	// diese Zeile erzeugt einen neuen Timer, der nicht von
+	    	// Threads abhängt und auch in ActionListenern benützt werden kann
+	    	
+	    	public void actionPerformed(ActionEvent evt) {
+	    		tm.start(); // hier wird der Timer gestartet
 	    		abschickenButton_ActionPerformed(evt);
 	    	}
 	    });
@@ -81,7 +89,7 @@ public class TestGame extends AbstractMiniGame {
 	}
 	  
 	public static void main(String[] args) {
-		MiniGame thisgame = new TestGame();
+		AbstractMiniGame thisgame = new TestGame(0);
 		  
 		thisgame.initialisieren();	  
 	}
