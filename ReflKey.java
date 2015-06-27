@@ -1,14 +1,12 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 public class ReflKey extends AbstractMiniGame {
 	// Anfang Attribut
 	private static String titel = "ReflKey";
 	
 	private int kill = 0;
-	private boolean dec = false;
 	private int eingabe;
 	private int code;
 	private int erg1 = (int) ((Math.random() * 9) + 0);
@@ -160,13 +158,12 @@ public class ReflKey extends AbstractMiniGame {
 		cp.add(achtung);
 		// Ende Komponenten
 
-		setVisible(true);
 	} // end of public ReflKey
 
 	// Anfang Methoden
 
 	public static void main(String[] args) {
-		new ReflKey(0);
+		new ReflKey(0).setVisible(true);;
 	} // end of main
 
 	public void nrfErgebnis_ActionPerformed(ActionEvent evt) {
@@ -176,11 +173,16 @@ public class ReflKey extends AbstractMiniGame {
 			if (code == eingabe) {
 				achtung.setVisible(true);
 				achtung.setText("  Hackversuch Erfolgreich!");
+				this.erfolg = true;
 			} // end of if
 			else {
 				achtung.setVisible(true);
 				achtung.setText("  Passwort Fehlerhaft.");
+				this.erfolg = false;
 			} // end of if-else
+			
+			this.versuche = 1;
+			this.fertig = true;
 		} // end of if
 	}
 
