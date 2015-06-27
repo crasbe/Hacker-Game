@@ -5,6 +5,16 @@ import javax.swing.JFrame;
 public abstract class AbstractMiniGame extends JFrame {
 	// das ist die "Mutterklasse" für jedes Minigame
 	
+	// jedes Minigame muss das Attribut "schwierigkeit" implementieren,
+	// mit dem entschieden wird, welches Spiel für einen Hackvorgang
+	// ausgewählt wird
+	// Es gibt die Schwierigkeitsgrade 1-3 und 0 bedeutet "nicht ausführen!".
+	public int schwierigkeit;
+	
+	public int versuche = 0;
+	public boolean erfolg = false;
+	public boolean fertig = false;
+	
 	public AbstractMiniGame(String titel) {
 		// hier wird der Konstruktor von JFrame aufgerufen und der
 		// Titel des Fensters/der Name des Minigames übergeben
@@ -16,21 +26,21 @@ public abstract class AbstractMiniGame extends JFrame {
 	// Jedes Minigame muss diese Methode implementieren.
 	public void initialisieren() {};
 	
-	// Diese Methode wird so lange aufgerufen, bis der Rückgabewert
-	// auf "true" wechselt.
-	// Dann wird "anzahlVersuche" aufgerufen, um die Anzahl der
-	// Versuche, die bis zur Lösung gebraucht wurden, aufgerufen.
+	// Aufruf: fertig()? -> erfolgreichGeloest()? -> anzahlVersuche()
+	
 	public boolean erfolgreichGeloest() {
-		return false;
-	};
-	public int anzahlVersuche() {
-		return 0;
+		// diese Methode gibt zurück, ob die Aufgabe erfolgreich gelöst
+		// wurde
+		return erfolg;
 	}
 	
-	// jedes Minigame muss das Attribut "schwierigkeit" implementieren,
-	// mit dem entschieden wird, welches Spiel für einen Hackvorgang
-	// ausgewählt wird
-	// Es gibt die Schwierigkeitsgrade 1-3 und 0 bedeutet "nicht ausführen!".
-	public int schwierigkeit;
+	public int anzahlVersuche() {
+		// diese Methode gibt die Anzahl der Versuche zur Lösung zurück
+		return versuche;
+	}
 	
+	public boolean fertig() {
+		// diese Methode gibt zurück, ob das Spiel fertig/abgeschlossen ist
+		return fertig;
+	}
 }
