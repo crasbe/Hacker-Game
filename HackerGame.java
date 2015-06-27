@@ -31,7 +31,11 @@ public class HackerGame {
 		
 		Mission missionAuswahl = ((GuiHub) guiHub).getAusgewaehlteMission();
 		
-		System.exit(0);
+		MissionPlayer missionLauncher = new MissionPlayer(missionAuswahl);
+		
+		missionLauncher.starten();
+		
+		//System.exit(0);
 	}
 	
 	private static void speichern() {
