@@ -3,16 +3,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-/**
- *
- * Beschreibung
- *
- * @version 1.0 vom 13.06.2015
- * @author
- */
-
 public class ReflKey extends AbstractMiniGame {
 	// Anfang Attribut
+	private static String titel = "ReflKey";
+	
 	private int kill = 0;
 	private boolean dec = false;
 	private int eingabe;
@@ -64,14 +58,10 @@ public class ReflKey extends AbstractMiniGame {
 	private JTextField achtung = new JTextField();
 
 	// Ende Attribute
-	// tm.addActionListener(ActionListener buchstabenAnzeigen1);
-	// tm.addActionListener(ActionListener buchstabenAnzeigen2);
-	// tm.addActionListener(ActionListener buchstabenAnzeigen3);
-	// tm.addActionListener(ActionListener buchstabenAnzeigen4);
-	// tm.addActionListener(ActionListener buchstabenAnzeigen5);
-	public ReflKey(String title) {
+
+	public ReflKey(int schwierigkeit) {
 		// Frame-Initialisierung
-		super(title);
+		super(titel);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		int frameWidth = 289;
 		int frameHeight = 431;
@@ -176,7 +166,7 @@ public class ReflKey extends AbstractMiniGame {
 	// Anfang Methoden
 
 	public static void main(String[] args) {
-		new ReflKey("ReflKey");
+		new ReflKey(0);
 	} // end of main
 
 	public void nrfErgebnis_ActionPerformed(ActionEvent evt) {
