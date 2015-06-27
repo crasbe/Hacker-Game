@@ -2,13 +2,17 @@ import java.util.*;
 
 public class Mission {
 
+	// Attribute
 	private Properties prop;
 	
+	
+	// Konstruktor
 	public Mission(Properties prop) {
 		// die Properties übernehmen
 		this.prop = prop;
 	}
 
+	
 	// ein großer Haufen getter und setter...
 	public Properties getProp() {
 		// die Properties zurückgeben
@@ -48,5 +52,10 @@ public class Mission {
 	public boolean isHauptmission() {
 		// zurückgeben, ob die Mission eine Hauptmission ist
 		return Boolean.parseBoolean(prop.getProperty("hauptmission"));
+	}
+	
+	public int getSpielzahl() {
+		// gibt die Anzahl an zu spielenden Spielen zurück
+		return Integer.parseInt(prop.getProperty("spielzahl"));
 	}
 }
