@@ -51,5 +51,5 @@ public abstract class AbstractMiniGame extends JFrame {
 	
 	erfolg = false;
 	fertig = false;
-  }  
+	}
 }
