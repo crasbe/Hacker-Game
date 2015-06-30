@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-
+import java.util.*;
 /**
   *
   * Beschreibung
@@ -11,8 +11,15 @@ import javax.swing.event.*;
   * @author 
   */
 
-public class WieZu extends AbstractMiniGame {
+public class WieZu extends JFrame {
   // Anfang Attribute
+  private class QuizLader extends AbstractLader {
+    public QuizLader() {
+      super ("quiz");
+    }
+  }  
+  // DummyKlasse  
+  
   private JRadioButton antw2 = new JRadioButton();
   private JRadioButton antw3 = new JRadioButton();
   private JRadioButton antw4 = new JRadioButton();
@@ -20,12 +27,13 @@ public class WieZu extends AbstractMiniGame {
   private JRadioButton antw1 = new JRadioButton();
   private JTextField aufgabe = new JTextField();
   private int antw;
-  private int richt;
+  private String richt;
   private int pktCnt;
-  private int rndCnt;
-  private AbstractLader quizLader = new AbstractLader("Quiz");
-  private Properties quizprop = quizLader.getProps().get(0);
-  
+  private int rndCnt = 1;
+  private AbstractLader quizLader = new QuizLader();
+  private Properties quizProp = quizLader.getProps().get(0);
+  private String auswahl;
+  private JButton btnAbschicken = new JButton();
   // Ende Attribute
   
   public WieZu(String title) { 
@@ -91,14 +99,51 @@ public class WieZu extends AbstractMiniGame {
     antwGroup.add(antw2);
     antwGroup.add(antw3);
     antwGroup.add(antw4);
+    btnAbschicken.setBounds(296, 264, 121, 57);
+    btnAbschicken.setText("weiter");
+    btnAbschicken.setMargin(new Insets(2, 2, 2, 2));
+    btnAbschicken.addActionListener(new ActionListener() { 
+      public void actionPerformed(ActionEvent evt) { 
+        btnAbschicken_ActionPerformed(evt);
+      }
+    });
+    cp.add(btnAbschicken);
+    setzeQuizfragen();
     // Ende Komponenten
     
     setVisible(true);
   } // end of public WieZu
   
   // Anfang Methoden
-  protected void rbtn_ActionPerformed(ActionEvent evt) {
+  
+  private void setzeQuizfragen(){
+    String richt = quizProp.getProperty("richt" + rndCnt);
+    aufgabe.setText(quizProp.getProperty("aufgabe" + rndCnt));
+    int a = 4 * (rndCnt - 1);
+    antw1.setText(quizProp.getProperty("antw"+ 1 + a));
+    antw2.setText(quizProp.getProperty("antw"+ 2 + a));
+    antw3.setText(quizProp.getProperty("antw"+ 3 + a));
+    antw4.setText(quizProp.getProperty("antw"+ 4 + a));
+    
+    
+  }
+  public void antw1_ActionPerformed(ActionEvent evt) {
     String auswahl = evt.getActionCommand();
+  } // end of antw1_ActionPerformed
+  
+  public void antw2_ActionPerformed(ActionEvent evt) {
+    String auswahl = evt.getActionCommand();
+  } // end of antw2_ActionPerformed
+  
+  public void antw3_ActionPerformed(ActionEvent evt) {
+    String auswahl = evt.getActionCommand();
+  } // end of antw3_ActionPerformed
+  
+  public void antw4_ActionPerformed(ActionEvent evt) {
+    String auswahl = evt.getActionCommand();
+  } // end of antw4_ActionPerformed
+  protected void btnAbschicken_ActionPerformed(ActionEvent evt) {
+    
     
     if (auswahl.equals(richt)) {
       pktCnt++;
@@ -110,44 +155,25 @@ public class WieZu extends AbstractMiniGame {
       rndCnt++;
       //nächste
     } // end of if-else
-    
+    setzeQuizfragen();
     /*if(auswahl.equals(antw1)) {
-      antw = 1;
+    antw = 1;
     } else if(auswahl.equals(antw2)) {
-      antw = 2;
+    antw = 2;
     } else if(auswahl.equals(antw3)) {
-      antw = 3;
+    antw = 3;
     }else if (auswahl.equals(antw4)){
-      antw = 4; 
+    antw = 4; 
     } // end of if-else
     
     if (antw == richt) {
-      //do smth.
+    //do smth.
     } // end of if
     else {
-      //fuckn retard
+    //fuckn retard
     } // end of if
     */
-    }
-  private void setzeQuizfragen(){
-    aufgabe.setText(quizProp.getProperty("aufgabe" + rndCnt);
-
-  public void antw1_ActionPerformed(ActionEvent evt) {
-    // TODO hier Quelltext einfügen
-  } // end of antw1_ActionPerformed
-  
-  public void antw2_ActionPerformed(ActionEvent evt) {
-    // TODO hier Quelltext einfügen
-  } // end of antw2_ActionPerformed
-  
-  public void antw3_ActionPerformed(ActionEvent evt) {
-    // TODO hier Quelltext einfügen
-  } // end of antw3_ActionPerformed
-  
-  public void antw4_ActionPerformed(ActionEvent evt) {
-    // TODO hier Quelltext einfügen
-  } // end of antw4_ActionPerformed
-  
+  }
   // Ende Methoden
   
   public static void main(String[] args) {
