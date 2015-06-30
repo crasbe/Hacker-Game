@@ -7,6 +7,25 @@ public class Charakter {
 	public Charakter(Properties prop) {	
 		// Übernehmen der Properties
 		this.prop = prop;
+		
+		// eine kleine Überprüfung, ob alle Properties gesetzt sind
+		boolean fail = false;	// wenn das Attribut "fail" auf true wechselt, wird das
+								// Programm am Ende der Überprüfung terminiert
+    
+    	String[] charProps = {	"abgeschlossen", "money", "skills", "serverleistung",
+    							"schlafbedarf", "matebedarf", "name", "speicherdatum",
+    							"kurzbeschreibung" };
+
+		for (int i = 0; i < charProps.length; i++) {
+			if (prop.containsKey(charProps[i]) == false) {
+				System.out.println("Charakter-Property '"+charProps[i]+"' fehlt!");
+				fail = true;
+			}
+		}
+		if (fail == true) {
+			System.out.println("Property "+prop.getProperty("name"));
+			System.exit(-1);
+		}
 	}
 	
 	// ein ganzer Haufen getter und setter...
