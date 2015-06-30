@@ -32,7 +32,7 @@ public class WieZu extends JFrame {
   private int rndCnt = 1;
   private AbstractLader quizLader = new QuizLader();
   private Properties quizProp = quizLader.getProps().get(0);
-  private String auswahl;
+  private String auswahl = "";
   private JButton btnAbschicken = new JButton();
   // Ende Attribute
   
@@ -120,59 +120,44 @@ public class WieZu extends JFrame {
     String richt = quizProp.getProperty("richt" + rndCnt);
     aufgabe.setText(quizProp.getProperty("aufgabe" + rndCnt));
     int a = 4 * (rndCnt - 1);
-    antw1.setText(quizProp.getProperty("antw"+ 1 + a));
-    antw2.setText(quizProp.getProperty("antw"+ 2 + a));
-    antw3.setText(quizProp.getProperty("antw"+ 3 + a));
-    antw4.setText(quizProp.getProperty("antw"+ 4 + a));
+    antw1.setText(quizProp.getProperty("antw"+ (1 + a)));
+    antw2.setText(quizProp.getProperty("antw"+ (2 + a)));
+    antw3.setText(quizProp.getProperty("antw"+ (3 + a)));
+    antw4.setText(quizProp.getProperty("antw"+ (4 + a)));
+
+    antwGroup.clearSelection(); // den ausgewählten Button für die
+                                // nächste Runde zurücksetzen
     
-    
+    rndCnt++;
   }
   public void antw1_ActionPerformed(ActionEvent evt) {
-    String auswahl = evt.getActionCommand();
+    auswahl = evt.getActionCommand();
   } // end of antw1_ActionPerformed
   
   public void antw2_ActionPerformed(ActionEvent evt) {
-    String auswahl = evt.getActionCommand();
+    auswahl = evt.getActionCommand();
   } // end of antw2_ActionPerformed
   
   public void antw3_ActionPerformed(ActionEvent evt) {
-    String auswahl = evt.getActionCommand();
+    auswahl = evt.getActionCommand();
   } // end of antw3_ActionPerformed
   
   public void antw4_ActionPerformed(ActionEvent evt) {
-    String auswahl = evt.getActionCommand();
+    auswahl = evt.getActionCommand();
   } // end of antw4_ActionPerformed
   protected void btnAbschicken_ActionPerformed(ActionEvent evt) {
     
     
     if (auswahl.equals(richt)) {
       pktCnt++;
-      rndCnt++;
       //nächste
     } // end of if
     else {
       pktCnt--;
-      rndCnt++;
       //nächste
     } // end of if-else
     setzeQuizfragen();
-    /*if(auswahl.equals(antw1)) {
-    antw = 1;
-    } else if(auswahl.equals(antw2)) {
-    antw = 2;
-    } else if(auswahl.equals(antw3)) {
-    antw = 3;
-    }else if (auswahl.equals(antw4)){
-    antw = 4; 
-    } // end of if-else
     
-    if (antw == richt) {
-    //do smth.
-    } // end of if
-    else {
-    //fuckn retard
-    } // end of if
-    */
   }
   // Ende Methoden
   
