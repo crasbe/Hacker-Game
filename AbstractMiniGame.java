@@ -43,4 +43,13 @@ public abstract class AbstractMiniGame extends JFrame {
 		// diese Methode gibt zurück, ob das Spiel fertig/abgeschlossen ist
 		return fertig;
 	}
+	
+	public void reset() {
+	// diese Methode sorgt dafür, dass das Spiel wieder auf Start zurückgesetzt
+	// wird
+	// FÜR MINIGAMES: diese Methode aufrufen und selbst zurücksetzen
+	
+	erfolg = false;
+	fertig = false;
+  }  
 }
