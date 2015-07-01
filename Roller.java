@@ -17,10 +17,7 @@ public class Roller extends AbstractMiniGame {
   // Anfang Attribute
   private static String title = "Roller";
   
-  private JTextField zahl1 = new JTextField();
-  private JTextField zahl2 = new JTextField();
-  private JTextField zahl3 = new JTextField();
-  private JTextField zahl4 = new JTextField();
+  
   private JLabel jLabel1 = new JLabel();
   private JButton btnStop = new JButton();
   
@@ -155,14 +152,7 @@ public Roller(int Schwierigkeitsgrad) {
   cp.setLayout(null);
   // Anfang Komponenten
   
-  zahl1.setBounds(96, 104, 49, 153);
-  cp.add(zahl1);
-  zahl2.setBounds(160, 104, 49, 153);
-  cp.add(zahl2);
-  zahl3.setBounds(224, 104, 49, 153);
-  cp.add(zahl3);
-  zahl4.setBounds(288, 104, 49, 153);
-  cp.add(zahl4);
+  
   jLabel1.setBounds(24, 144, 68, 65);
   jLabel1.setText("      >");
   jLabel1.setFont(new Font("Fixedsys", Font.BOLD, 20));
@@ -178,9 +168,17 @@ public Roller(int Schwierigkeitsgrad) {
   });
   btnStop.setFont(new Font("Fixedsys", Font.BOLD, 12));
   btnStop.setForeground(Color.GREEN);
+    btnStop.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    btnStop.setBackground(Color.BLACK);
+    btnStop.setBorder(new javax.swing.border.LineBorder(Color.GREEN, 2));
   cp.add(btnStop);
-  txtri1.setBounds(104, 48, 33, 49);
+    txtri1.setBounds(104, 48, 33, 49);
   txtri1.setText("  "+erg1);
+    txtri1.setEditable(false);
+    txtri1.setBackground(Color.BLACK);
+
+    txtri1.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    txtri1.setForeground(Color.GREEN);
   cp.add(txtri1);
   btnStart.setBounds(352, 88, 81, 81);
   btnStart.setText("Start");
@@ -192,6 +190,9 @@ public Roller(int Schwierigkeitsgrad) {
   });
   btnStart.setFont(new Font("Fixedsys", Font.BOLD, 12));
   btnStart.setForeground(Color.GREEN);
+    btnStart.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    btnStart.setBackground(Color.BLACK);
+    btnStart.setBorder(new javax.swing.border.LineBorder(Color.GREEN, 2));
   cp.add(btnStart);
   jPanel1.setBounds(96, 104, 49, 153);
   jPanel1.setOpaque(false);
@@ -205,39 +206,91 @@ public Roller(int Schwierigkeitsgrad) {
   jPanel4.setBounds(288, 104, 49, 153);
   jPanel4.setOpaque(false);
   cp.add(jPanel4);
-  z1_1.setBounds(0, 16, 49, 33);
+    z1_1.setBounds(0, 16, 49, 33);
+    z1_1.setBackground(Color.BLACK);
+    z1_1.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    z1_1.setForeground(Color.GREEN);
   jPanel1.add(z1_1);
-  z1_2.setBounds(0, 56, 49, 33);
+    z1_2.setBounds(0, 56, 49, 33);
+    z1_2.setBackground(Color.BLACK);
+    z1_2.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    z1_2.setForeground(Color.GREEN);
   jPanel1.add(z1_2);
-  z1_3.setBounds(0, 96, 49, 33);
+    z1_3.setBounds(0, 96, 49, 33);
+    z1_3.setBackground(Color.BLACK);
+    z1_3.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    z1_3.setForeground(Color.GREEN);
   jPanel1.add(z1_3);
-  z2_1.setBounds(160, 120, 49, 33);
+    z2_1.setBounds(160, 120, 49, 33);
+    z2_1.setBackground(Color.BLACK);
+    z2_1.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    z2_1.setForeground(Color.GREEN);
   cp.add(z2_1);
-  z2_3.setBounds(160, 200, 49, 33);
+    z2_3.setBounds(160, 200, 49, 33);
+    z2_3.setBackground(Color.BLACK);
+    z2_3.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    z2_3.setForeground(Color.GREEN);
   cp.add(z2_3);
-  z2_2.setBounds(160, 160, 49, 33);
+    z2_2.setBounds(160, 160, 49, 33);
+    z2_2.setBackground(Color.BLACK);
+    z2_2.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    z2_2.setForeground(Color.GREEN);
   cp.add(z2_2);
-  z3_1.setBounds(0, 16, 49, 33);
+    z3_1.setBounds(0, 16, 49, 33);
+    z3_1.setBackground(Color.BLACK);
+    z3_1.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    z3_1.setForeground(Color.GREEN);
   jPanel3.add(z3_1);
-  z3_3.setBounds(0, 96, 49, 33);
+    z3_3.setBounds(0, 96, 49, 33);
+    z3_3.setBackground(Color.BLACK);
+    z3_3.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    z3_3.setForeground(Color.GREEN);
   jPanel3.add(z3_3);
-  z3_2.setBounds(0, 56, 49, 33);
+    z3_2.setBounds(0, 56, 49, 33);
+    z3_2.setBackground(Color.BLACK);
+    z3_2.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    z3_2.setForeground(Color.GREEN);
   jPanel3.add(z3_2);
-  z4_1.setBounds(0, 16, 49, 33);
+    z4_1.setBounds(0, 16, 49, 33);
+    z4_1.setBackground(Color.BLACK);
+    z4_1.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    z4_1.setForeground(Color.GREEN);
   jPanel4.add(z4_1);
-  z4_3.setBounds(0, 96, 49, 33);
+    z4_3.setBounds(0, 96, 49, 33);
+    z4_3.setBackground(Color.BLACK);
+    z4_3.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    z4_3.setForeground(Color.GREEN);
   jPanel4.add(z4_3);
-  z4_2.setBounds(0, 56, 49, 33);
+    z4_2.setBounds(0, 56, 49, 33);
+    z4_2.setBackground(Color.BLACK);
+    z4_2.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    z4_2.setForeground(Color.GREEN);
   jPanel4.add(z4_2);
-  txtri4.setBounds(296, 48, 33, 49);
+    txtri4.setBounds(296, 48, 33, 49);
   txtri4.setText("  "+erg4);
+    txtri4.setEditable(false);
+    txtri4.setBackground(Color.BLACK);
+
+    txtri4.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    txtri4.setForeground(Color.GREEN);
   cp.add(txtri4);
-  txtri3.setBounds(232, 48, 33, 49);
+    txtri3.setBounds(232, 48, 33, 49);
   txtri3.setText("  "+erg3);
+    txtri3.setEditable(false);
+    txtri3.setBackground(Color.BLACK);
+
+    txtri3.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    txtri3.setForeground(Color.GREEN);
   cp.add(txtri3);
-  txtri2.setBounds(168, 48, 33, 49);
+    txtri2.setBounds(168, 48, 33, 49);
   txtri2.setText("  "+erg2);
+    txtri2.setEditable(false);
+    txtri2.setBackground(Color.BLACK);
+
+    txtri2.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+    txtri2.setForeground(Color.GREEN);
   cp.add(txtri2);
+    cp.setBackground(Color.BLACK);
   // Ende Komponenten
   
   setVisible(true);
