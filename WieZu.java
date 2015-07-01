@@ -198,7 +198,7 @@ public class WieZu extends AbstractMiniGame {
       
       this.versuche = 1;
       this.fertig = true;
-      setVisible(false);
+       guiAusblenden();
     } // end of if
     rndCnt++;
     setzeQuizfragen();
