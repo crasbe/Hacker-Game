@@ -186,7 +186,7 @@ public void nrfErgebnis_ActionPerformed(ActionEvent evt) {
     
     this.versuche = 1;
     this.fertig = true;
-    setVisible(false);
+     guiAusblenden();
   } // end of if
 }
 
@@ -201,7 +201,7 @@ public void decstart_MousePressed(MouseEvent evt) {
     this.erfolg = false;
     this.versuche = 1;
     this.fertig = true;
-    setVisible(false);
+    guiAusblenden();
   } // end of if-else
   kill = kill + 1;
   if (kill == 6) {
