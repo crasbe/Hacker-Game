@@ -39,7 +39,9 @@ public class MissionPlayer {
 			// hier wird ein zufälliges Spiel aus den geladenen Spielen ausgesucht
 			AbstractMiniGame miniGame = lader.miniGameWaehlen();
 			
-			miniGame.setVisible(true); // lasset die Spiele beginnen!
+			miniGame.initialisieren();	// das Minigame initialisieren und z.B.
+										// Zufallszahlen bilden.
+			miniGame.setVisible(true); // Lasset die Spiele beginnen!
 			
 			while(miniGame.fertig() == false && miniGame.isVisible() == true) {
 				// so lange das Spiel noch nicht fertig ist oder das Fenster nicht
