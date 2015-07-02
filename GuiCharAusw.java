@@ -4,13 +4,6 @@ import java.awt.event.*;
 import java.util.*;
 
 import javax.swing.*;
-import javax.swing.event.*;
-
-/* Beschreibung
- *
- * @version 1.0 vom 11.06.2015
- * @author 
- */
 
 public class GuiCharAusw extends AbstractGui {
 	// Anfang Attribute
@@ -274,10 +267,12 @@ public class GuiCharAusw extends AbstractGui {
 	
 	protected void lstSaveGame_MousePressed(MouseEvent evt) {
 		if(lstSaveGame.getSelectedValue() != null) {
+			System.out.println("HI!");
 			String name = lstSaveGame.getSelectedValue().toString().split(" ")[0];
+			System.out.println(name);
 			for(int i = 0; i < saveChar.size(); i++) {
 				String saveCharName = saveChar.get(i).getName();
-				if(saveCharName.equals(name)) {
+				if(saveCharName.contains(name)) {
 					charAusgewaehlt = saveChar.get(i);
 					updateInfo(charAusgewaehlt);
 				}
@@ -285,7 +280,7 @@ public class GuiCharAusw extends AbstractGui {
 		}
 	}
 
-	protected void rbtnLadeSpiel_ActionPerormed(ActionEvent evt) {
+	private void rbtnLadeSpiel_ActionPerormed(ActionEvent evt) {
 		rbtnAuswahl1.setEnabled(false);
 		rbtnAuswahl2.setEnabled(false);
 		rbtnAuswahl3.setEnabled(false);
@@ -293,7 +288,7 @@ public class GuiCharAusw extends AbstractGui {
 		
 	}
 
-	protected void rbtnNeuesSpiel_ActionPerormed(ActionEvent evt) {
+	private void rbtnNeuesSpiel_ActionPerormed(ActionEvent evt) {
 		rbtnAuswahl1.setEnabled(true);
 		rbtnAuswahl2.setEnabled(true);
 		rbtnAuswahl3.setEnabled(true);
