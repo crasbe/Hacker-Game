@@ -41,7 +41,6 @@ public class Roller extends AbstractMiniGame {
 	private int durchgaenge2 = 0;
 	private int durchgaenge3 = 0;
 	private int durchgaenge4 = 0;
-	private boolean gestartet = false;
 	
 	private Random rand = new Random();
 	
@@ -297,18 +296,17 @@ public class Roller extends AbstractMiniGame {
 	}
 
 	public void btnStart_ActionPerformed(ActionEvent evt) {
-		if(gestartet == false) {
-			tm1.setInitialDelay(0);
-			tm1.start();
-			tm2.setInitialDelay(0);
-			tm2.start();
-			tm3.setInitialDelay(0);
-			tm3.start();
-			tm4.setInitialDelay(0);
-			tm4.start();
-		}
-		gestartet = true;	// wenn das Spiel gestartet wurde, soll es
-							// nicht noch einmal gestartet werden können
+		// wenn das Spiel gestartet wurde, soll man es nur noch stoppen können
+		btnStart.setEnabled(false);
+		
+		tm1.setInitialDelay(0);
+		tm1.start();
+		tm2.setInitialDelay(0);
+		tm2.start();
+		tm3.setInitialDelay(0);
+		tm3.start();
+		tm4.setInitialDelay(0);
+		tm4.start();
 	}
 
 	public static void main(String[] args) {
@@ -318,7 +316,8 @@ public class Roller extends AbstractMiniGame {
 	}
 
 	public void initialisieren() {
-		gestartet = false;
+		// den Startbutton wieder klickbar machen
+		btnStart.setEnabled(true);
 		
 		// die richtigen Ergebnisse für den Roller initialisieren
 		erg = Arrays.asList(rand.nextInt(30)+20, rand.nextInt(30)+20,
@@ -342,8 +341,22 @@ public class Roller extends AbstractMiniGame {
 				text.add(" "+(erg.get(i) + add.get(i*10+j)));
 			}
 		}
+		
+		z1_1.setText("");
+		z1_2.setText("");
+		z1_3.setText("");
+		z2_1.setText("");
+		z2_2.setText("");
+		z2_3.setText("");
+		z3_1.setText("");
+		z3_2.setText("");
+		z3_3.setText("");
+		z4_1.setText("");
+		z4_2.setText("");
+		z4_3.setText("");
 
 		// zurück auf Start :)
+		sto = 0;
 		versuche = 0;
 		fertig = false;
 		erfolg = false;
