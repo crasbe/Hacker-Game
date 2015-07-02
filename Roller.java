@@ -44,9 +44,6 @@ public class Roller extends AbstractMiniGame {
 	
 	private Random rand = new Random();
 	
-	private AbstractGui guiWinScreen = new GuiWinScreen();
-	private AbstractGui guiLoseScreen = new GuiLoseScreen();
-	
 	private List<String> text = new ArrayList<String>(40);
 	private List<Integer> erg = new ArrayList<Integer>(4);
 	// Ende Attribute
@@ -318,6 +315,9 @@ public class Roller extends AbstractMiniGame {
 	}
 
 	public void initialisieren() {
+		// die Initialisierungsfunktion der Mutterklasse aufrufen
+		super.initialisieren();
+		
 		// den Startbutton wieder klickbar machen
 		btnStart.setEnabled(true);
 		
@@ -359,20 +359,5 @@ public class Roller extends AbstractMiniGame {
 
 		// zurück auf Start :)
 		sto = 0;
-		versuche = 0;
-		fertig = false;
-		erfolg = false;
-	}
-	
-	public void setVisible(boolean b) {
-		// Die Methode "setVisible" der Mutterklasse wird überschrieben,
-		// damit auch die anderen Fenster geschlossen werden
-		if(b == false) {
-			guiLoseScreen.setVisible(false);
-			guiWinScreen.setVisible(false);
-		}
-		
-		// die eigentliche Funktion (die Überschrieben wurde), aufrufen.
-		super.setVisible(b);
 	}
 }
