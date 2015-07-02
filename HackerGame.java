@@ -22,18 +22,40 @@ public class HackerGame {
 		charakterSpiel = ((GuiCharAusw) guiCharAusw).getCharakterAuswahl();
 		charakterAusgewaehlt = true;
 		
-		// hier ist die Hub Gui aktiv
-		guiHub = new GuiHub(new MissionLader(charakterSpiel.getAbgeschMissionen()).getMissionen());
-		guiHub.initialisieren(charakterSpiel);
-		guiHub.setVisible(true);
-		warten(guiHub);
-		guiHub.guiAusblenden();
-		
-		Mission missionAuswahl = ((GuiHub) guiHub).getAusgewaehlteMission();
-		
-		MissionPlayer missionLauncher = new MissionPlayer(missionAuswahl);
-		
-		missionLauncher.starten();
+		while(true) {
+			// Basis
+			
+			// hier ist die Hub Gui aktiv
+			guiHub = new GuiHub(new MissionLader(charakterSpiel.getAbgeschMissionen()).getMissionen());
+			guiHub.initialisieren(charakterSpiel);
+			guiHub.setVisible(true);
+			warten(guiHub);
+			guiHub.guiAusblenden();
+			
+			Mission missionAuswahl = ((GuiHub) guiHub).getAusgewaehlteMission();
+			
+			MissionPlayer missionLauncher = new MissionPlayer(missionAuswahl);
+			
+			missionLauncher.starten();
+			
+			while(missionLauncher.isFertig() == false) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(missionLauncher.isFail()) {
+				charakterSpiel.missionFehlschlag(missionAuswahl);
+			} else {
+				charakterSpiel.missionErfolg(missionAuswahl);
+			}
+			
+			missionLauncher.beenden();
+			
+			speichern();
+		}
 		
 		//System.exit(0);
 	}
