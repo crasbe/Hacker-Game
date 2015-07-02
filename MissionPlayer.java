@@ -2,6 +2,10 @@
 public class MissionPlayer {
 	// der MissionPlayer ist jene Klasse, die die Mission "abspielt"
 	
+	private boolean fail = false;	// falls ein MiniGame nicht erfolgreich abgeschlossen
+									// wird, wird "fail" true und die Mission gilt als
+									// gescheitert
+	private boolean fertig = false;
 	
 	private GuiKonsole guiKonsole = new GuiKonsole();
 		// in der Konsole findet der Hackvorgang statt
@@ -23,10 +27,6 @@ public class MissionPlayer {
 		guiKonsole.addLine("Mission \""+mission.getName()+"\" gestartet...");
 		sleep(2);
 		guiKonsole.addLine("blablubb test");
-		
-		boolean fail = false; 	// falls ein MiniGame nicht erfolgreich abgeschlossen
-								// wird, wird "fail" true und die Mission gilt als
-								// gescheitert
 		
 		for(int i = 1; i <= mission.getSpielzahl(); i++) {
 			// so lange MiniGames starten, bis die obere Grenze erreicht ist
@@ -65,17 +65,27 @@ public class MissionPlayer {
 		}
 		
 		if(fail == true) {
-			// do something
+			guiKonsole.addLine("Mission gescheitert!");
+			guiKonsole.addLine();
+			guiKonsole.addLine("Du hast für die Mission "+mission.getKosten()+"€ ausgegeben.");
+		} else {
+			guiKonsole.addLine("Du hast alle Herausforderungen gelöst!");
+			guiKonsole.addLine();
+			guiKonsole.addLine("Die Mission \""+mission.getName()+"\" ist erfolgreich abgeschlossen!");
+			guiKonsole.addLine("Folgende Belohnungen erwarten dich:");
+			guiKonsole.addLine("Geld:");
+			guiKonsole.addLine("  Ausgaben: "+mission.getKosten());
+			guiKonsole.addLine("  Einnahmen: "+mission.getGewinn());
+			guiKonsole.addLine("   -> Gewinn: "+(mission.getGewinn()-mission.getKosten()));
+			guiKonsole.addLine();
+			guiKonsole.addLine("Skillverbesserung: "+mission.getSkillverbesserung());
+			
 		}
 		
-		guiKonsole.addLine("Du hast alle Herausforderungen gelöst!");
 		guiKonsole.addLine();
-		guiKonsole.addLine("Die Mission \""+mission.getName()+"\" ist erfolgreich abgeschlossen!");
-		guiKonsole.addLine("Folgende Belohnungen erwarten dich:");
-		guiKonsole.addLine("Ausgaben: "+mission.getKosten());
-		guiKonsole.addLine("Einnahmen: "+mission.getGewinn());
-		guiKonsole.addLine("-> Gewinn: "+(mission.getGewinn()-mission.getKosten()));
-
+		guiKonsole.addLine("Dein Schlafbedarf hat sich um "+mission.getSchlafbedarf()+" erhöht.");
+		
+		fertig = true;
 	}
 	
 	private void sleep(int sekunden) {
@@ -85,6 +95,20 @@ public class MissionPlayer {
 		} catch(InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean isFertig() {
+		// erst ausschreiben lassen!
+		return fertig && guiKonsole.isQueueEmpty();
+	}
+	
+	public boolean isFail() {
+		return fail;
+	}
+	
+	public void beenden() {
+		guiKonsole.setVisible(false);
+		guiKonsole.clear();
 	}
 	
 }
