@@ -28,13 +28,13 @@ public class Hammer extends AbstractMiniGame {
       
       kill++;
 
-      if (kill == 6 - s) { // hier Schwierigleit verändern
+      if (kill == 6 - schwierigkeit) { // hier Schwierigleit verändern
         guiLoseScreen.setVisible(true);
         tm1.stop();
         erfolg = false;
         versuche = 1;
         fertig = true;
-      } else if (win == 5 + s) { // hier Schwierigleit verändern
+      } else if (win == 5 + schwierigkeit) { // hier Schwierigleit verändern
         guiWinScreen.setVisible(true);
         tm1.stop();
         erfolg = true;
@@ -46,12 +46,12 @@ public class Hammer extends AbstractMiniGame {
     }
   };
 
-  private Timer tm1 = new Timer(800 + 700/s, t1); // hier Schwierigkeit verstellen
+  private Timer tm1 = new Timer(800 + 700/schwierigkeit, t1); // hier Schwierigkeit verstellen
   
-  public Hammer(int Schwierigkeitsgrad) {
+  public Hammer(int schwierigkeit) {
     super(title);
     
-    this.s = schwierigkeit;
+    this.schwierigkeit = schwierigkeit;
     
     int frameWidth = 404;
     int frameHeight = 386;
