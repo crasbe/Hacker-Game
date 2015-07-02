@@ -55,13 +55,16 @@ public class ReflKey extends AbstractMiniGame {
 		}
 	};
 
-	private Timer tm = new Timer(1000, buchAnz);
+	private Timer tm = new Timer(1000 - 100*schwierigkeit, buchAnz);
 
 	// Ende Attribute
 
 	public ReflKey(int schwierigkeit) {
 		// Frame-Initialisierung
 		super(titel);
+		
+		this.schwierigkeit = schwierigkeit;
+		
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		int frameWidth = 289;
 		int frameHeight = 431;
