@@ -1,143 +1,206 @@
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+
 import java.util.*;
 
-public class Charakter {
 
-	private Properties prop;
+public class GuiHub extends AbstractGui {
 	
-	public Charakter(Properties prop) {	
-		// Übernehmen der Properties
-		this.prop = prop;
-		
-		// eine kleine Überprüfung, ob alle Properties gesetzt sind
-		boolean fail = false;	// wenn das Attribut "fail" auf true wechselt, wird das
-								// Programm am Ende der Überprüfung terminiert
-    
-    	String[] charProps = {	"abgeschlossen", "money", "skills", "serverleistung",
-    							"schlafbedarf", "matebedarf", "name", "speicherdatum",
-    							"kurzbeschreibung" };
+	private java.util.List<Mission> missionen = new ArrayList<Mission>();
+	private Mission missionAusgewaehlt;
+	private AbstractGui guiMissInf;
 
-		for (int i = 0; i < charProps.length; i++) {
-			if (prop.containsKey(charProps[i]) == false) {
-				System.out.println("Charakter-Property '"+charProps[i]+"' fehlt!");
-				fail = true;
+	private int schwierigkeitsgrad;
+	private double charakterGeld;
+	
+	// Anfang Attribute
+	private static String titel = "HUB";
+	
+	//private DefaultComboBoxModel jComboBox1Model = new DefaultComboBoxModel();
+	private JButton btnCharinfo = new JButton();
+	private JButton btnBasis = new JButton();
+	private JList lstHauptmiss = new JList();
+	private DefaultListModel lstHauptmissModel = new DefaultListModel();
+	private JScrollPane lstHauptmissScrollPane = new JScrollPane(lstHauptmiss);
+	private JList lstNebenmiss = new JList();
+	private DefaultListModel lstNebenmissModel = new DefaultListModel();
+	private JScrollPane lstNebenmissScrollPane = new JScrollPane(lstNebenmiss);
+
+	private AbstractGui guiCharInf;
+	
+	// Ende Attribute
+
+	public GuiHub(java.util.List<Mission> missionen) {
+		super();
+		
+		this.missionen = missionen;
+		
+		// Frame-Initialisierung
+		setTitle(titel);
+		int frameWidth = 725;
+		int frameHeight = 230;
+		setSize(frameWidth, frameHeight);
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (d.width - getSize().width) / 2;
+		int y = (d.height - getSize().height) / 2;
+		setLocation(x, y);
+		setResizable(false);
+		Container cp = getContentPane();
+		cp.setLayout(null);
+		// Anfang Komponenten
+
+		btnCharinfo.setBounds(376, 24, 297, 57);
+		btnCharinfo.setText("Charakterinfo");
+		btnCharinfo.setMargin(new Insets(2, 2, 2, 2));
+		btnCharinfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				btnCharinfo_ActionPerformed(evt);
 			}
-		}
-		if (fail == true) {
-			System.out.println("Property "+prop.getProperty("name"));
-			System.exit(-1);
-		}
-	}
-	
-	// ein ganzer Haufen getter und setter...
-	public Properties getProp() {
-		return prop;
-	}
-	
-	public double getMoney() {
-		// die Geldmenge aus den Properties auslesen
-		return Double.parseDouble(prop.getProperty("money"));
-	}
-	
-	public void setMoney(double money) {
-		// die Geldmenge in die Properties schreiben
-		prop.setProperty("money", ""+money);
-	}
-	
-	public int getSkills() {
-		// die Skills aus den Properties auslesen
-		return Integer.parseInt(prop.getProperty("skills"));
-	}
-	
-	public void setSkills(int skills) {
-		// die Skills in die Properties schreiben
-		prop.setProperty("skills", ""+skills);
-	}
-	
-	public int getServerleistung() {
-		// die Serverleistung aus den Properties auslesen
-		return Integer.parseInt(prop.getProperty("serverleistung"));
-	}
-	
-	public void setServerleistung(int serverleistung) {
-		// die Serverleistung in die Properties schreiben
-		prop.setProperty("serverleistung", ""+serverleistung);
-	}
-	
-	public int getSchlafbedarf() {
-		// den Schlafbedarf aus den Properties auslesen
-		return Integer.parseInt(prop.getProperty("schlafbedarf"));
-	}
-	
-	public void setSchlafbedarf(int schlafbedarf) {
-		// den Schlafbedarf in die Properties schreiben
-		prop.setProperty("schlafbedarf", ""+schlafbedarf);
-	}
-	
-	public int getMatebedarf() {
-		// den Matebedarf aus den Properties auslesen
-		return Integer.parseInt(prop.getProperty("matebedarf"));
-	}
-	
-	public void setMatebedarf(int matebedarf) {
-		// den Matebedarf in die Properties schreiben
-		prop.setProperty("matebedarf", ""+matebedarf);
-	}
-	
-	public String getName() {
-		// den Namen aus den Properties auslesen
-		return prop.getProperty("name");
-	}
-	
-	public void setName(String name) {
-		// den Namen in die Properties schreiben
-		prop.setProperty("name", name);
-	}
-	
-	public String getSpeicherdatum() {
-		// das Speicherdatum aus den Properties auslesen
-		return prop.getProperty("speicherdatum");
-	}
-	
-	public void setSpeicherdatum(String datum) {
-		// das Speicherdatum in die Properties schreiben
-		prop.setProperty("speicherdatum", datum);
-	}
-	
-	public String getKurzbeschreibung() {
-		// die Kurzbeschreibung aus den Properties auslesen
-		return prop.getProperty("kurzbeschreibung");
-	}
-	
-	public List<String> getAbgeschMissionen() {
-		// die abgeschlossenen Missionen als Liste aus den Properties auslesen
-		String[] abgeschMissionenTmp = prop.getProperty("abgeschlossen").split(",");
-		List<String> abgeschMissionen = new ArrayList<String>();
-		
-		// TODO: Bessere Methode zur Typenumwandlung
-		if(abgeschMissionenTmp.length > 1) {
-			for(int i = 0; i < abgeschMissionenTmp.length; i++) {
-				abgeschMissionen.add(abgeschMissionenTmp[i]);
+		});
+		btnCharinfo.setBackground(Color.BLACK);
+		btnCharinfo
+				.setBorder(new javax.swing.border.LineBorder(Color.GREEN, 3));
+		btnCharinfo.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+		btnCharinfo.setForeground(Color.GREEN);
+		cp.add(btnCharinfo);
+		btnBasis.setBounds(376, 104, 297, 57);
+		btnBasis.setText("Basis");
+		btnBasis.setMargin(new Insets(2, 2, 2, 2));
+		btnBasis.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				btnBasis_ActionPerformed(evt);
 			}
-		}
+		});
+		btnBasis.setBackground(Color.BLACK);
+		btnBasis.setBorder(new javax.swing.border.LineBorder(Color.GREEN, 3));
+		btnBasis.setForeground(Color.GREEN);
+		btnBasis.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+		cp.add(btnBasis);
+		setTitle("HUB");
+		cp.setBackground(Color.BLACK);
+		lstHauptmiss.setModel(lstHauptmissModel);
+		lstHauptmissScrollPane.setBounds(24, 24, 337, 57);
+		lstHauptmiss.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lstHauptmiss.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+		lstHauptmiss.setForeground(Color.GREEN);
+		lstHauptmiss.setBackground(Color.BLACK);
 		
-		return abgeschMissionen;
+		lstHauptmiss.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		cp.add(lstHauptmissScrollPane);
+		lstNebenmiss.setModel(lstNebenmissModel);
+		lstNebenmissScrollPane.setBounds(24, 104, 337, 57);
+		lstNebenmiss.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+		lstNebenmiss.setForeground(Color.GREEN);
+		lstNebenmiss.setBackground(Color.BLACK);
+		lstNebenmiss.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		cp.add(lstNebenmissScrollPane);
 		
-	}
-	
-	public void setAbgeschMissionen(List<String> missionen) {
-		// die abgeschlossenen Missionen in die Properties schreiben
-		// temporärer String, in dem die abgeschlossenen Missionen
-		// durch Kommata getrennt gespeichert werden
-		String tmp = "";
+		lstHauptmiss.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lst_MousePressed(e, "hauptmiss");
+			}
+		});
+		lstNebenmiss.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lst_MousePressed(e, "nebenmiss");
+			}
+		});
 		
 		for(int i = 0; i < missionen.size(); i++) {
-			tmp += missionen.get(i);
+			if(missionen.get(i).isHauptmission()) {
+				lstHauptmissModel.addElement(missionen.get(i).getName());
+				continue;
+			}
+			
+			
+			if(missionen.get(i).getSchwierigkeit() <= schwierigkeitsgrad &&
+			   missionen.get(i).getKosten() <= charakterGeld) {
+				lstNebenmissModel.addElement(missionen.get(i).getName());
+			}
+		}	
+	}
+
+	@Override
+	public boolean isVisible() {
+		if(guiMissInf != null) {
+			if(guiMissInf.isVisible() == false) {
+				if(guiMissInf.terminiert == false) {
+					guiMissInf.dispose();
+					setVisible(false);
+					return false;
+				}
+			}
 		}
-		prop.setProperty(	"abgeschlossen", tmp.substring(0, tmp.length()-2));
+		
+		return super.isVisible();
+	}
+
+	private void lst_MousePressed(MouseEvent e, String lst) {
+		String element = "";
+		
+		// Über den String lst kann ich herausfinden, welche Liste das Event getriggert hat.
+		// Das ginge zwar auch mit zwei verschiedenen Methoden, wäre aber redundanter Code.
+		if(lst == "hauptmiss") {
+			if(lstHauptmissModel.isEmpty()) {
+				return;
+			}
+			element = lstHauptmiss.getSelectedValue().toString();
+			lstNebenmiss.clearSelection();
+		} else if(lst == "nebenmiss") {
+			if(lstNebenmissModel.isEmpty()) {
+				return;
+			}
+			element = lstNebenmiss.getSelectedValue().toString();
+			lstHauptmiss.clearSelection();
+		} else {
+			System.out.println("Wo zum Teufel kam das Event her?");
+			System.exit(-1);
+		}
+		
+		for(int i = 0; i < missionen.size(); i++) {
+			if(missionen.get(i).getName().equals(element)) {
+				if(guiMissInf != null) {
+					if(guiMissInf.isVisible()) {
+						guiMissInf.guiAusblenden();
+					}
+				}
+				guiMissInf = new GuiMissInf(missionen.get(i));
+				missionAusgewaehlt = missionen.get(i);
+				if(missionen.get(i).getSchwierigkeit() > schwierigkeitsgrad ||
+						   missionen.get(i).getKosten() > charakterGeld) {
+					// wenn die Mission über dem Schwierigkeitsgrad ist oder zu viel
+					// kostet, dann kann man sie nicht starten.
+					((GuiMissInf) guiMissInf).hackButtonDeaktivieren();
+				}
+				guiMissInf.setVisible(true);
+			}
+		}
+		
+	}
+
+	// Anfang Methoden
+
+	public void initialisieren(Charakter charakter) {
+		this.guiCharInf = new GuiCharInf(charakter);
+		this.schwierigkeitsgrad = charakter.berechneMglSchwierigkeitsgrad();
+		this.charakterGeld = charakter.getMoney();
+	}
+
+	public Mission getAusgewaehlteMission() {
+		return missionAusgewaehlt;
 	}
 	
-	public void addAbgeschMissionen(String mission) {
-		// den abgeschlossenen Missionen der Properties einen Eintrag hinzufügen
-		prop.setProperty("abgeschlossen", prop.getProperty("abgeschlossen")+","+mission);
+	public void btnCharinfo_ActionPerformed(ActionEvent evt) {
+		guiCharInf.setVisible(true);
 	}
+
+	public void btnBasis_ActionPerformed(ActionEvent evt) {
+		// TODO hier Quelltext einfügen
+	} // end of btnBasis_ActionPerformed
+
+	// Ende Methoden
 }
