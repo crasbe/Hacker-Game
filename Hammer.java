@@ -12,8 +12,6 @@ public class Hammer extends AbstractMiniGame {
 
   private JButton btnStart = new JButton();
   
-  private int s;
-  
   private List<JButton> buttons = new ArrayList<JButton>();
   
   private int kill = 0;
