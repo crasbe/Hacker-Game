@@ -169,6 +169,11 @@ public class GuiKonsole extends AbstractGui {
 			return false;
 		}
 	}
+	
+	public void clear() {
+		this.textKonsole = "";
+		this.textQueue = "";
+	}
 
 	public static void main(String[] args) {
 		// ein bisschen Testkram
