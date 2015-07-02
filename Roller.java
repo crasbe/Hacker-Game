@@ -64,7 +64,7 @@ public class Roller extends AbstractMiniGame {
 		}
 	};
 
-	private Timer tm1 = new Timer(500, t1);
+	private Timer tm1 = new Timer(10 + 690/schwierigkeit, t1);
 	private ActionListener t2 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			z2_1.setText(text.get(1*10+2+durchgaenge2));
@@ -78,7 +78,7 @@ public class Roller extends AbstractMiniGame {
 		}
 	};
 
-	private Timer tm2 = new Timer(500, t2);
+	private Timer tm2 = new Timer(10 + 690/schwierigkeit, t2);
 	private ActionListener t3 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			z3_1.setText(text.get(2*10+2+durchgaenge3));
@@ -92,7 +92,7 @@ public class Roller extends AbstractMiniGame {
 		}
 	};
 
-	private Timer tm3 = new Timer(500, t3);
+	private Timer tm3 = new Timer(10 + 690/schwierigkeit, t3);
 	private ActionListener t4 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			z4_1.setText(text.get(3*10+2+durchgaenge4));
@@ -106,11 +106,13 @@ public class Roller extends AbstractMiniGame {
 		}
 	};
 
-	private Timer tm4 = new Timer(500, t4);
+	private Timer tm4 = new Timer(10 + 690/schwierigkeit, t4);
 
-	public Roller(int Schwierigkeitsgrad) {
+	public Roller(int schwierigkeit) {
 		// Frame-Initialisierung
 		super(title);
+		
+		this.schwierigkeit = schwierigkeit:
 
 		int frameWidth = 488;
 		int frameHeight = 378;
