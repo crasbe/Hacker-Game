@@ -31,6 +31,8 @@ public class Merken extends AbstractMiniGame {
     private int c4;
     private int c5;
     
+    private int s;
+    
     private AbstractGui guiWinScreen = new GuiWinScreen();
     private AbstractGui guiLoseScreen = new GuiLoseScreen();
   // Ende Attribute
@@ -98,6 +100,7 @@ public class Merken extends AbstractMiniGame {
   public Merken(int Schwierigkeitsgrad) { 
     // Frame-Initialisierung
     super(title);
+    this.s = schwierigkeit
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     int frameWidth = 378; 
     int frameHeight = 465;
