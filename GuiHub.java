@@ -12,6 +12,8 @@ public class GuiHub extends AbstractGui {
 	private Mission missionAusgewaehlt;
 	private AbstractGui guiMissInf;
 
+	private int schwierigkeitsgrad;
+	private double charakterGeld;
 	
 	// Anfang Attribute
 	private static String titel = "HUB";
@@ -111,14 +113,16 @@ public class GuiHub extends AbstractGui {
 		for(int i = 0; i < missionen.size(); i++) {
 			if(missionen.get(i).isHauptmission()) {
 				lstHauptmissModel.addElement(missionen.get(i).getName());
-			} else {
+				continue;
+			}
+			
+			
+			if(missionen.get(i).getSchwierigkeit() <= schwierigkeitsgrad &&
+			   missionen.get(i).getKosten() <= charakterGeld) {
 				lstNebenmissModel.addElement(missionen.get(i).getName());
 			}
-		}
-		
-		// Ende Komponenten
-
-	} // end of public GuiHub
+		}	
+	}
 
 	@Override
 	public boolean isVisible() {
@@ -141,9 +145,15 @@ public class GuiHub extends AbstractGui {
 		// Über den String lst kann ich herausfinden, welche Liste das Event getriggert hat.
 		// Das ginge zwar auch mit zwei verschiedenen Methoden, wäre aber redundanter Code.
 		if(lst == "hauptmiss") {
+			if(lstHauptmissModel.isEmpty()) {
+				return;
+			}
 			element = lstHauptmiss.getSelectedValue().toString();
 			lstNebenmiss.clearSelection();
 		} else if(lst == "nebenmiss") {
+			if(lstNebenmissModel.isEmpty()) {
+				return;
+			}
 			element = lstNebenmiss.getSelectedValue().toString();
 			lstHauptmiss.clearSelection();
 		} else {
@@ -160,6 +170,12 @@ public class GuiHub extends AbstractGui {
 				}
 				guiMissInf = new GuiMissInf(missionen.get(i));
 				missionAusgewaehlt = missionen.get(i);
+				if(missionen.get(i).getSchwierigkeit() > schwierigkeitsgrad ||
+						   missionen.get(i).getKosten() > charakterGeld) {
+					// wenn die Mission über dem Schwierigkeitsgrad ist oder zu viel
+					// kostet, dann kann man sie nicht starten.
+					((GuiMissInf) guiMissInf).hackButtonDeaktivieren();
+				}
 				guiMissInf.setVisible(true);
 			}
 		}
@@ -170,6 +186,8 @@ public class GuiHub extends AbstractGui {
 
 	public void initialisieren(Charakter charakter) {
 		this.guiCharInf = new GuiCharInf(charakter);
+		this.schwierigkeitsgrad = charakter.berechneMglSchwierigkeitsgrad();
+		this.charakterGeld = charakter.getMoney();
 	}
 
 	public Mission getAusgewaehlteMission() {
