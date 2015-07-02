@@ -69,7 +69,7 @@ public class Merken extends AbstractMiniGame {
       b++;
     }
   };
-  private Timer tm1 = new Timer(800 + 700/schwierigkeit, t1); // hier Schwierigkeit verstellen
+  private Timer tm1 = new Timer(1500 - 50*schwierigkeit, t1); // hier Schwierigkeit verstellen
   private ActionListener t2 = new ActionListener() {
     public void actionPerformed(ActionEvent e){
       buttons.get(a).setBackground(Color.BLACK);
@@ -93,7 +93,7 @@ public class Merken extends AbstractMiniGame {
       } // end of if
     }
   };
-  private Timer tm2 = new Timer(200 + 500/schwierigkeit, t2);  //SChwierigkeit verstellen
+  private Timer tm2 = new Timer(700 - 25*schwierigkeit, t2);  //SChwierigkeit verstellen
   
   public Merken(int schwierigkeit) { 
     // Frame-Initialisierung
