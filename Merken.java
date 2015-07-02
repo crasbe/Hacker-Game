@@ -98,7 +98,7 @@ public class Merken extends AbstractMiniGame {
   public Merken(int schwierigkeit) { 
     // Frame-Initialisierung
     super(title);
-    this.schwierigkeit = schwierigkeit
+    this.schwierigkeit = schwierigkeit;
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     int frameWidth = 378; 
     int frameHeight = 465;
