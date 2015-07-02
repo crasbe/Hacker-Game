@@ -54,10 +54,6 @@ public class Roller extends AbstractMiniGame {
 
 	private ActionListener t1 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			// System.out.println(""+erg1+" "+erg2+" "+erg3+" "+erg4+" "+erg5);
-			/*z1_1.setText(text1[durchgaenge1 + 2]);
-			z1_2.setText(text1[durchgaenge1 + 1]);
-			z1_3.setText(text1[durchgaenge1]);*/
 			z1_1.setText(text.get(0*10+2+durchgaenge1));
 			z1_2.setText(text.get(0*10+1+durchgaenge1));
 			z1_3.setText(text.get(0*10+0+durchgaenge1));
@@ -72,14 +68,9 @@ public class Roller extends AbstractMiniGame {
 	private Timer tm1 = new Timer(500, t1);
 	private ActionListener t2 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			// System.out.println(""+erg1+" "+erg2+" "+erg3+" "+erg4+" "+erg5);
-			/*z2_1.setText(text2[durchgaenge2 + 2]);
-			z2_2.setText(text2[durchgaenge2 + 1]);
-			z2_3.setText(text2[durchgaenge2]);*/
 			z2_1.setText(text.get(1*10+2+durchgaenge2));
 			z2_2.setText(text.get(1*10+1+durchgaenge2));
 			z2_3.setText(text.get(1*10+0+durchgaenge2));
-			
 			
 			durchgaenge2++;
 			if (durchgaenge2 == 8) {
@@ -91,15 +82,9 @@ public class Roller extends AbstractMiniGame {
 	private Timer tm2 = new Timer(500, t2);
 	private ActionListener t3 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			// System.out.println(""+erg1+" "+erg2+" "+erg3+" "+erg4+" "+erg5);
-			/*z3_1.setText(text3[durchgaenge3 + 2]);
-			z3_2.setText(text3[durchgaenge3 + 1]);
-			z3_3.setText(text3[durchgaenge3]);*/
-			
 			z3_1.setText(text.get(2*10+2+durchgaenge3));
 			z3_2.setText(text.get(2*10+1+durchgaenge3));
 			z3_3.setText(text.get(2*10+0+durchgaenge3));
-			
 
 			durchgaenge3++;
 			if (durchgaenge3 == 8) {
@@ -111,10 +96,6 @@ public class Roller extends AbstractMiniGame {
 	private Timer tm3 = new Timer(500, t3);
 	private ActionListener t4 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			// System.out.println(""+erg1+" "+erg2+" "+erg3+" "+erg4+" "+erg5);
-			/*z4_1.setText(text4[durchgaenge4 + 2]);
-			z4_2.setText(text4[durchgaenge4 + 1]);
-			z4_3.setText(text4[durchgaenge4]);*/
 			z4_1.setText(text.get(3*10+2+durchgaenge4));
 			z4_2.setText(text.get(3*10+1+durchgaenge4));
 			z4_3.setText(text.get(3*10+0+durchgaenge4));
@@ -165,12 +146,29 @@ public class Roller extends AbstractMiniGame {
 		cp.add(btnStop);
 		
 		txtri1.setBounds(104, 48, 33, 49);
-		//txtri1.setText(" " + erg1);
 		txtri1.setEditable(false);
 		txtri1.setBackground(Color.BLACK);
 		txtri1.setFont(new Font("Fixedsys", Font.PLAIN, 12));
 		txtri1.setForeground(Color.GREEN);
 		cp.add(txtri1);
+		txtri2.setBounds(168, 48, 33, 49);
+		txtri2.setEditable(false);
+		txtri2.setBackground(Color.BLACK);
+		txtri2.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+		txtri2.setForeground(Color.GREEN);
+		cp.add(txtri2);
+		txtri3.setBounds(232, 48, 33, 49);
+		txtri3.setEditable(false);
+		txtri3.setBackground(Color.BLACK);
+		txtri3.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+		txtri3.setForeground(Color.GREEN);
+		cp.add(txtri3);
+		txtri4.setBounds(296, 48, 33, 49);
+		txtri4.setEditable(false);
+		txtri4.setBackground(Color.BLACK);
+		txtri4.setFont(new Font("Fixedsys", Font.PLAIN, 12));
+		txtri4.setForeground(Color.GREEN);
+		cp.add(txtri4);
 		
 		btnStart.setBounds(352, 88, 81, 81);
 		btnStart.setText("Start");
@@ -261,46 +259,24 @@ public class Roller extends AbstractMiniGame {
 		z4_2.setForeground(Color.GREEN);
 		jPanel4.add(z4_2);
 		
-		txtri4.setBounds(296, 48, 33, 49);
-		//txtri4.setText("  " + erg4);
-		txtri4.setEditable(false);
-		txtri4.setBackground(Color.BLACK);
 
-		txtri4.setFont(new Font("Fixedsys", Font.PLAIN, 12));
-		txtri4.setForeground(Color.GREEN);
-		cp.add(txtri4);
-		txtri3.setBounds(232, 48, 33, 49);
-		//txtri3.setText("  " + erg3);
-		txtri3.setEditable(false);
-		txtri3.setBackground(Color.BLACK);
-		txtri3.setFont(new Font("Fixedsys", Font.PLAIN, 12));
-		txtri3.setForeground(Color.GREEN);
-		cp.add(txtri3);
-		
-		txtri2.setBounds(168, 48, 33, 49);
-		//txtri2.setText("  " + erg2);
-		txtri2.setEditable(false);
-		txtri2.setBackground(Color.BLACK);
-		txtri2.setFont(new Font("Fixedsys", Font.PLAIN, 12));
-		txtri2.setForeground(Color.GREEN);
-		cp.add(txtri2);
 		cp.setBackground(Color.BLACK);
 		// Ende Komponenten
 
-	} // end of public Roller
+	}
 
 	// Anfang Methoden
 	public void btnStop_ActionPerformed(ActionEvent evt) {
 		sto++;
 		if (sto == 1) {
 			tm1.stop();
-		} // end of if
+		}
 		else if (sto == 2) {
 			tm2.stop();
-		} // end of if
+		}
 		else if (sto == 3) {
 			tm3.stop();
-		} // end of if-else
+		}
 		else if (sto == 4) {
 			tm4.stop();
 			
@@ -317,7 +293,6 @@ public class Roller extends AbstractMiniGame {
 
 			this.versuche = 1;
 			this.fertig = true;
-			//setVisible(false);
 		}
 	}
 
@@ -340,7 +315,7 @@ public class Roller extends AbstractMiniGame {
 		AbstractMiniGame roller = new Roller(0);
 		roller.initialisieren();
 		roller.setVisible(true);
-	} // end of main
+	}
 
 	public void initialisieren() {
 		gestartet = false;
