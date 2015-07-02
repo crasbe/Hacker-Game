@@ -13,7 +13,11 @@ public class MiniGameLader {
 		// (Mit Arrays arbeiten zu wollen kommt von Python :))
 		//miniGames.add(new TestGame(schwierigkeit));
 		miniGames.add(new ReflKey(schwierigkeit));
-		
+		miniGames.add(new Roller(schwierigkeit));
+		miniGames.add(new Hammer(schwierigkeit));
+		miniGames.add(new WieZu(schwierigkeit));
+		miniGames.add(new SpamZiel(schwierigkeit));
+		miniGames.add(new Merken(schwierigkeit));
 	}
 	
 	public AbstractMiniGame miniGameWaehlen() {
