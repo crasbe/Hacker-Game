@@ -100,6 +100,10 @@ public class GuiKonsole extends AbstractGui {
 		
 		if(textQueue.length() > 0) {
 			tmCursor.stop();
+			// eventuellen Cursor rausschnippeln
+			if(textKonsole.endsWith("_")) {
+				textKonsole = textKonsole.substring(0, textKonsole.length()-1);
+			}
 		} else {
 			tmCursor.start();
 			return;
