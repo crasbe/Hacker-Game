@@ -229,6 +229,7 @@ public class ReflKey extends AbstractMiniGame {
 		text.set(4+32, " "+erg5);
 		
 		code = erg1 * 10000 + erg2 * 1000 + erg3 * 100 + erg4 * 10 + erg5;
+		System.out.print((erg1==0)?"0":"");
 		System.out.println(code);
 		
 		// zurück auf Start :)
@@ -236,6 +237,14 @@ public class ReflKey extends AbstractMiniGame {
 		versuche = 0;
 		fertig = false;
 		erfolg = false;
+		zahl1.setText("");
+		zahl2.setText("");
+		zahl3.setText("");
+		zahl4.setText("");
+		zahl5.setText("");
+		nrfErgebnis.setText("");
+		achtung.setVisible(false);
+		
 	}
 	
 	public void setVisible(boolean b) {
