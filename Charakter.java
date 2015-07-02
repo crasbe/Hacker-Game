@@ -33,17 +33,17 @@ public class Charakter {
 		return prop;
 	}
 	
-	public double getMoney() {
+	public int getMoney() {
 		// die Geldmenge aus den Properties auslesen
-		return Double.parseDouble(prop.getProperty("money"));
+		return Integer.parseInt(prop.getProperty("money"));
 	}
 	
-	public void setMoney(double money) {
+	public void setMoney(int money) {
 		// die Geldmenge in die Properties schreiben
 		prop.setProperty("money", ""+money);
 	}
 	
-	public void addMoney(double money) {
+	public void addMoney(int money) {
 		prop.setProperty("money", ""+(this.getMoney()+money));
 	}
 	
@@ -126,6 +126,22 @@ public class Charakter {
 	public String getKurzbeschreibung() {
 		// die Kurzbeschreibung aus den Properties auslesen
 		return prop.getProperty("kurzbeschreibung");
+	}
+	
+	public int getPreisServerleistung() {
+		return Integer.parseInt(prop.getProperty("preisserv"));
+	}
+	
+	public void setPreisServerleistung(int preis) {
+		prop.setProperty("preisserv", ""+preis);
+	}
+	
+	public int getPreisMate() {
+		return Integer.parseInt(prop.getProperty("matepreis"));
+	}
+	
+	public void setPreisMate(int preis) {
+		prop.setProperty("preismate", ""+preis);
 	}
 	
 	public List<String> getAbgeschMissionen() {
