@@ -4,15 +4,19 @@ import javax.swing.*;
 
 public class GuiLoseScreen extends AbstractGui {
 	// Anfang Attribute
+	private String titel = "MISSLUNGEN!";
+	
 	private JButton jButton1 = new JButton();
 	private JPanel jPanel1 = new JPanel(null, true);
 	private JLabel winMsg = new JLabel();
 
 	// Ende Attribute
 
-	public GuiLoseScreen(String title) {
+	public GuiLoseScreen() {
 		// Frame-Initialisierung
 		super();
+		
+		setTitle(titel);
 		int frameWidth = 528;
 		int frameHeight = 195;
 		setSize(frameWidth, frameHeight);
@@ -58,7 +62,7 @@ public class GuiLoseScreen extends AbstractGui {
 	// Anfang Methoden
 
 	public static void main(String[] args) {
-		new GuiLoseScreen("MISSLUNGEN").setVisible(true);
+		new GuiLoseScreen().setVisible(true);
 	} // end of main
 
 	public void jButton1_ActionPerformed(ActionEvent evt) {
@@ -66,4 +70,4 @@ public class GuiLoseScreen extends AbstractGui {
 	} // end of jButton1_ActionPerformed
 
 	// Ende Methoden
-} // end of class MiniGamesWinScreen
+}
