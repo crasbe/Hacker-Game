@@ -30,9 +30,7 @@ public class Merken extends AbstractMiniGame {
     private int c3;
     private int c4;
     private int c5;
-    
-    private int s;
-    
+ 
     private AbstractGui guiWinScreen = new GuiWinScreen();
     private AbstractGui guiLoseScreen = new GuiLoseScreen();
   // Ende Attribute
@@ -71,7 +69,7 @@ public class Merken extends AbstractMiniGame {
       b++;
     }
   };
-  private Timer tm1 = new Timer(1200, t1); // hier Schwierigkeit verstellen
+  private Timer tm1 = new Timer(800 + 700/schwierigkeit, t1); // hier Schwierigkeit verstellen
   private ActionListener t2 = new ActionListener() {
     public void actionPerformed(ActionEvent e){
       buttons.get(a).setBackground(Color.BLACK);
@@ -95,12 +93,12 @@ public class Merken extends AbstractMiniGame {
       } // end of if
     }
   };
-  private Timer tm2 = new Timer(500, t2);  
+  private Timer tm2 = new Timer(200 + 500/schwierigkeit, t2);  //SChwierigkeit verstellen
   
-  public Merken(int Schwierigkeitsgrad) { 
+  public Merken(int schwierigkeit) { 
     // Frame-Initialisierung
     super(title);
-    this.s = schwierigkeit
+    this.schwierigkeit = schwierigkeit
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     int frameWidth = 378; 
     int frameHeight = 465;
