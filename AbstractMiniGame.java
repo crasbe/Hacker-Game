@@ -15,6 +15,11 @@ public abstract class AbstractMiniGame extends JFrame {
 	public boolean erfolg = false;
 	public boolean fertig = false;
 	
+	// Da diese zwei Fenster sowieso von allen Minigames benutzt werden,
+	// können sie auch schon in der abstrakten Mutterklasse definiert werden.
+	public AbstractGui guiWinScreen = new GuiWinScreen();
+	public AbstractGui guiLoseScreen = new GuiLoseScreen();
+	
 	public AbstractMiniGame(String titel) {
 		// hier wird der Konstruktor von JFrame aufgerufen und der
 		// Titel des Fensters/der Name des Minigames übergeben
@@ -24,7 +29,13 @@ public abstract class AbstractMiniGame extends JFrame {
 	// Diese Methode sorgt für die Initialisierung der Minigames,
 	// z.B. fürs Füllen von Rechenaufgaben.
 	// Jedes Minigame muss diese Methode implementieren.
-	public void initialisieren() {};
+	public void initialisieren() {
+		// ein bisschen grundsätzliches Initialisieren, was bei jedem
+		// Minigame gleich ist.
+		erfolg = false;
+		versuche = 0;
+		fertig = false;
+	};
 	
 	// Aufruf: fertig()? -> erfolgreichGeloest()? -> anzahlVersuche()
 	
@@ -42,5 +53,18 @@ public abstract class AbstractMiniGame extends JFrame {
 	public boolean fertig() {
 		// diese Methode gibt zurück, ob das Spiel fertig/abgeschlossen ist
 		return fertig;
+	}
+	
+	@Override
+	public void setVisible(boolean b) {
+		// Die Methode "setVisible" der Mutterklasse wird überschrieben,
+		// damit auch die anderen Fenster geschlossen werden
+		if(b == false) {
+			guiLoseScreen.setVisible(false);
+			guiWinScreen.setVisible(false);
+		}
+		
+		// die eigentliche Funktion (die Überschrieben wurde), aufrufen.
+		super.setVisible(b);
 	}
 }
