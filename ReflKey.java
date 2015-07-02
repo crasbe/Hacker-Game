@@ -217,6 +217,9 @@ public class ReflKey extends AbstractMiniGame {
 	}
 
 	public void initialisieren() {
+		// die Initialisierungsfunktion der Mutterklasse aufrufen
+		super.initialisieren();
+		
 		// hier werden alle Zufallszahlen neu generiert und der
 		// Code daraus gebildet.
 		int erg1 = rand.nextInt(10);
@@ -237,9 +240,6 @@ public class ReflKey extends AbstractMiniGame {
 		
 		// zurück auf Start :)
 		durchgaenge = 0;
-		versuche = 0;
-		fertig = false;
-		erfolg = false;
 		zahl1.setText("");
 		zahl2.setText("");
 		zahl3.setText("");
@@ -247,18 +247,5 @@ public class ReflKey extends AbstractMiniGame {
 		zahl5.setText("");
 		nrfErgebnis.setText("");
 		achtung.setVisible(false);
-		
-	}
-	
-	public void setVisible(boolean b) {
-		// Die Methode "setVisible" der Mutterklasse wird überschrieben,
-		// damit auch die anderen Fenster geschlossen werden
-		if(b == false) {
-			guiLoseScreen.setVisible(false);
-			guiWinScreen.setVisible(false);
-		}
-		
-		// die eigentliche Funktion (die Überschrieben wurde), aufrufen.
-		super.setVisible(b);
 	}
 }
