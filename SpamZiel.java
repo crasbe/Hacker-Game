@@ -1,15 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
-
-/**
- *
- * Beschreibung
- *
- * @version 1.0 vom 20.06.2015
- * @author
- */
 
 public class SpamZiel extends AbstractMiniGame {
 	// Anfang Attribute
@@ -21,14 +12,9 @@ public class SpamZiel extends AbstractMiniGame {
 	private JButton btFertig = new JButton();
 	
 	private int spam = 0;
-	//private int durchgaenge;
 	private int x = 500;
 	private int y = 250;
 	private int rndCnt = 0;
-	
-	private AbstractGui guiWinScreen = new GuiWinScreen();
-	private AbstractGui guiLoseScreen = new GuiLoseScreen();
-	
 	// Ende Attribute
 	
 	// Diese Timerschleife lässt nach dem btInstall gedrückt wurde (s.u.)
