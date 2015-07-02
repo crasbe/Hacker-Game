@@ -109,7 +109,7 @@ public class Roller extends AbstractMiniGame {
 		// Frame-Initialisierung
 		super(title);
 		
-		this.schwierigkeit = schwierigkeit:
+		this.schwierigkeit = schwierigkeit;
 
 		int frameWidth = 488;
 		int frameHeight = 378;
