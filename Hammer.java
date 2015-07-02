@@ -144,7 +144,15 @@ public class Hammer extends AbstractMiniGame {
 		// die Buttons und die Zähler zurücksetzen
 		for(int i = 0; i < buttons.size(); i++) {
 			buttons.get(i).setText("0");
+			buttons.get(i).setVisible(false);
 		}
+		
+		// zurück auf Start :)
+		versuche = 0;
+		kill = 0;
+		win = 0;
+		fertig = false;
+		erfolg = false;
 	}
 	
 	public void setVisible(boolean b) {
