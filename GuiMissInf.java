@@ -1,16 +1,6 @@
-import java.util.*;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-/**
- *
- * Beschreibung
- *
- * @version 1.0 vom 11.06.2015
- * @author
- */
 
 public class GuiMissInf extends AbstractGui {
 	// Anfang Attribute
@@ -123,6 +113,10 @@ public class GuiMissInf extends AbstractGui {
 		setVisible(false);
 	} // end of btnHack_ActionPerformed
 
+	public void hackButtonDeaktivieren() {
+		btnHack.setEnabled(false);
+		btnHack.setBackground(Color.LIGHT_GRAY);
+	}
 	
 	// Ende Methoden
 } // end of class gui3_missinf
