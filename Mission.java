@@ -39,14 +39,14 @@ public class Mission {
 		return Integer.parseInt(prop.getProperty("schwierigkeit"));
 	}
 
-	public double getKosten() {
+	public int getKosten() {
 		// die Kosten aus den Properties auslesen
-		return Double.parseDouble(prop.getProperty("kosten"));
+		return Integer.parseInt(prop.getProperty("kosten"));
 	}
 
-	public double getGewinn() {
+	public int getGewinn() {
 		// den Gewinn aus den Properties auslesen
-		return Double.parseDouble(prop.getProperty("gewinn"));
+		return Integer.parseInt(prop.getProperty("gewinn"));
 	}
 	
 	public boolean isHauptmission() {
@@ -57,5 +57,10 @@ public class Mission {
 	public int getSpielzahl() {
 		// gibt die Anzahl an zu spielenden Spielen zurück
 		return Integer.parseInt(prop.getProperty("spielzahl"));
+	}
+
+
+	public int getSchlafbedarf() {
+		return Integer.parseInt(prop.getProperty("schlafbedarf"));
 	}
 }
