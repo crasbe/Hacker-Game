@@ -150,6 +150,9 @@ public class WieZu extends AbstractMiniGame {
 	} // end of main
 	
 	public void initialisieren() {
+		// die Initialisierungsfunktion der Mutterklasse aufrufen
+		super.initialisieren();
+		
 		// die Anzahl an Aufgaben ermitteln
 		int i = 0;
 		do {
@@ -160,22 +163,7 @@ public class WieZu extends AbstractMiniGame {
 		rndCnt = 1;
 		pktCnt = 0;
 		auswahl = 0;
-		versuche = 0;
-		fertig = false;
-		erfolg = false;
 		
 		setzeQuizfragen();
-	}
-	
-	public void setVisible(boolean b) {
-		// Die Methode "setVisible" der Mutterklasse wird überschrieben,
-		// damit auch die anderen Fenster geschlossen werden
-		if(b == false) {
-			guiLoseScreen.setVisible(false);
-			guiWinScreen.setVisible(false);
-		}
-		
-		// die eigentliche Funktion (die Überschrieben wurde), aufrufen.
-		super.setVisible(b);
 	}
 }
