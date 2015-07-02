@@ -16,6 +16,8 @@ public class Hammer extends AbstractMiniGame {
 
 	private int kill = 0;
 	private int win = 0;
+	
+	private Timer tm1;
 
 	private ActionListener t1 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -42,14 +44,12 @@ public class Hammer extends AbstractMiniGame {
 		}
 	};
 
-	private Timer tm1 = new Timer(800 + 700 / schwierigkeit, t1); // hier
-																	// Schwierigkeit
-																	// verstellen
-
 	public Hammer(int schwierigkeit) {
 		super(title);
 
 		this.schwierigkeit = schwierigkeit;
+		
+		tm1 = new Timer(800 + 700 / schwierigkeit, t1);
 
 		int frameWidth = 404;
 		int frameHeight = 386;
