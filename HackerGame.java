@@ -7,6 +7,7 @@ public class HackerGame {
 	private static boolean charakterAusgewaehlt = false; // #playwithme
 	private static AbstractGui guiCharAusw;
 	private static AbstractGui guiHub;
+	private static AbstractGui guiBasis;
 	
 	
 	public static void main(String[] args) {
@@ -24,6 +25,12 @@ public class HackerGame {
 		
 		while(true) {
 			// Basis
+			guiBasis = new GuiBasis(charakterSpiel);
+			guiBasis.initialisieren();
+			guiBasis.setVisible(true);
+			warten(guiBasis);
+			guiBasis.guiAusblenden();
+			charakterSpiel = ((GuiBasis) guiBasis).getChar();
 			
 			// hier ist die Hub Gui aktiv
 			guiHub = new GuiHub(new MissionLader(charakterSpiel.getAbgeschMissionen()).getMissionen());
