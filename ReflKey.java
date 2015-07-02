@@ -27,10 +27,6 @@ public class ReflKey extends AbstractMiniGame {
 	private JTextField zahl5 = new JTextField();
 	private JTextField ueberschrift2 = new JTextField();
 	private JTextField achtung = new JTextField();
-	
-	// die Win-/ und Lose-Screens initialisieren
-	private AbstractGui guiLoseScreen = new GuiLoseScreen();
-	private AbstractGui guiWinScreen = new GuiWinScreen();
 
 	// variable Elemente: 1+0, 3+8, 6+16, 2+24, 4+32
 	//                    1,   11,  22,   26,   36
