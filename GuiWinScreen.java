@@ -4,15 +4,19 @@ import javax.swing.*;
 
 public class GuiWinScreen extends AbstractGui {
 	// Anfang Attribute
+	private String titel = "ERFOLG!";
+	
 	private JButton jButton1 = new JButton();
 	private JPanel jPanel1 = new JPanel(null, true);
 	private JLabel winMsg = new JLabel();
 
 	// Ende Attribute
 
-	public GuiWinScreen(String title) {
+	public GuiWinScreen() {
 		// Frame-Initialisierung
 		super();
+		
+		setTitle(titel);
 		int frameWidth = 528;
 		int frameHeight = 195;
 		setSize(frameWidth, frameHeight);
@@ -58,7 +62,7 @@ public class GuiWinScreen extends AbstractGui {
 	// Anfang Methoden
 
 	public static void main(String[] args) {
-		new GuiWinScreen("MiniGamesWinScreen").setVisible(true);
+		new GuiWinScreen().setVisible(true);
 	} // end of main
 
 	public void jButton1_ActionPerformed(ActionEvent evt) {
