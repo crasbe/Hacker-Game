@@ -161,7 +161,7 @@ public class WieZu extends AbstractMiniGame {
 	}
 
 	public static void main(String[] args) {
-		AbstractMiniGame wieZu = new WieZu(25);
+		AbstractMiniGame wieZu = new WieZu(15);
 		wieZu.initialisieren();
 		wieZu.setVisible(true);
 	} // end of main
