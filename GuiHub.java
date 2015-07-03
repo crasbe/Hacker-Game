@@ -15,10 +15,10 @@ public class GuiHub extends AbstractGui {
 	private int schwierigkeitsgrad;
 	private double charakterGeld;
 	
-	// Anfang Attribute
+	private boolean zuBasis = false;
+
 	private static String titel = "HUB";
 	
-	//private DefaultComboBoxModel jComboBox1Model = new DefaultComboBoxModel();
 	private JButton btnCharinfo = new JButton();
 	private JButton btnBasis = new JButton();
 	private JList lstHauptmiss = new JList();
@@ -80,6 +80,7 @@ public class GuiHub extends AbstractGui {
 		cp.add(btnBasis);
 		setTitle("HUB");
 		cp.setBackground(Color.BLACK);
+		
 		lstHauptmiss.setModel(lstHauptmissModel);
 		lstHauptmissScrollPane.setBounds(24, 24, 337, 57);
 		lstHauptmiss.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -109,19 +110,6 @@ public class GuiHub extends AbstractGui {
 				lst_MousePressed(e, "nebenmiss");
 			}
 		});
-		
-		for(int i = 0; i < missionen.size(); i++) {
-			if(missionen.get(i).isHauptmission()) {
-				lstHauptmissModel.addElement(missionen.get(i).getName());
-				continue;
-			}
-			
-			
-			if(missionen.get(i).getSchwierigkeit() <= schwierigkeitsgrad &&
-			   missionen.get(i).getKosten() <= charakterGeld) {
-				lstNebenmissModel.addElement(missionen.get(i).getName());
-			}
-		}	
 	}
 
 	@Override
@@ -188,6 +176,21 @@ public class GuiHub extends AbstractGui {
 		this.guiCharInf = new GuiCharInf(charakter);
 		this.schwierigkeitsgrad = charakter.berechneMglSchwierigkeitsgrad();
 		this.charakterGeld = charakter.getMoney();
+		
+		// passende Missionen hinzufügen
+		for(int i = 0; i < missionen.size(); i++) {
+			if(missionen.get(i).isHauptmission()) {
+				lstHauptmissModel.addElement(missionen.get(i).getName());
+				continue;
+			}
+			
+			if(missionen.get(i).getSchwierigkeit() <= schwierigkeitsgrad &&
+			   missionen.get(i).getKosten() <= charakterGeld) {
+				lstNebenmissModel.addElement(missionen.get(i).getName());
+			}
+		}	
+		
+		zuBasis = false;
 	}
 
 	public Mission getAusgewaehlteMission() {
@@ -199,8 +202,11 @@ public class GuiHub extends AbstractGui {
 	}
 
 	public void btnBasis_ActionPerformed(ActionEvent evt) {
-		// TODO hier Quelltext einfügen
-	} // end of btnBasis_ActionPerformed
+		zuBasis = true;
+		setVisible(false);
+	}
 
-	// Ende Methoden
+	public boolean zuBasis() {
+		return zuBasis;
+	}
 }
