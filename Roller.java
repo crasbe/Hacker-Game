@@ -64,6 +64,7 @@ public class Roller extends AbstractMiniGame {
 	private Timer tm1 = new Timer(700 - 35*schwierigkeit, t1);
 	private ActionListener t2 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+			System.out.println("Hi!");
 			z2_1.setText(text.get(1*10+2+durchgaenge2));
 			z2_2.setText(text.get(1*10+1+durchgaenge2));
 			z2_3.setText(text.get(1*10+0+durchgaenge2));
@@ -278,6 +279,8 @@ public class Roller extends AbstractMiniGame {
 		else if (sto == 4) {
 			tm4.stop();
 			
+			btnStop.setEnabled(false);
+			
 			if(erg.get(0) == Double.parseDouble(z1_2.getText()) &&
 				erg.get(1) == Double.parseDouble(z2_2.getText()) &&
 				erg.get(2) == Double.parseDouble(z3_2.getText()) &&
@@ -357,6 +360,11 @@ public class Roller extends AbstractMiniGame {
 		z4_2.setText("");
 		z4_3.setText("");
 
+		durchgaenge1 = 0;
+		durchgaenge2 = 0;
+		durchgaenge3 = 0;
+		durchgaenge4 = 0;
+		
 		// zurück auf Start :)
 		sto = 0;
 	}
