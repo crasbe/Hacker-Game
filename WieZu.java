@@ -18,7 +18,8 @@ public class WieZu extends AbstractMiniGame {
 		}
 	};
 	private AbstractLader quizLader = new QuizLader();
-	private Properties quizProp = quizLader.getProps().get(0);
+	private List<Properties> quizProps = quizLader.getProps();
+	private Properties quizProp = new Properties();
 
 	private ButtonGroup antwGroup = new ButtonGroup();
 	private JTextField aufgabe = new JTextField();
@@ -100,6 +101,22 @@ public class WieZu extends AbstractMiniGame {
 		btnAbschicken.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		cp.add(btnAbschicken);
 		cp.setBackground(Color.BLACK);
+		
+		// so lange den benötigten Schwierigkeitsgrad senken, bis ein Quiz auftaucht
+		// (für 100 verschiedene Quiz reichte die Zeit nicht)
+		for(int i = schwierigkeit; i >= 1; i--) {
+			for(int j = 0; j < quizProps.size(); j++) {
+				if(quizProp.isEmpty() == false) {
+					// wenn schon eins gefunden wurde, kein neues zuweisen
+					break;
+				}
+
+				if(quizProps.get(j).get("name").equals("quiz"+i)) {
+					quizProp = quizProps.get(j);
+					break;
+				}
+			}
+		}
 	}
 
 	private void setzeQuizfragen() {
@@ -144,7 +161,7 @@ public class WieZu extends AbstractMiniGame {
 	}
 
 	public static void main(String[] args) {
-		AbstractMiniGame wieZu = new WieZu(0);
+		AbstractMiniGame wieZu = new WieZu(25);
 		wieZu.initialisieren();
 		wieZu.setVisible(true);
 	} // end of main
