@@ -38,7 +38,6 @@ public class GuiKonsole extends AbstractGui {
 		super();
 		
 		setTitle("Konsole");
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		int frameWidth = 830;
 		int frameHeight = 520;
 		setSize(frameWidth, frameHeight);
@@ -59,7 +58,7 @@ public class GuiKonsole extends AbstractGui {
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		taKonsoleScrollPane.setBounds(4, 4, 822, 484);
-		taKonsole.setFont(new Font("Courier New", Font.PLAIN, 16));
+		taKonsole.setFont(new Font("Monospaced", Font.BOLD, 16));
 		taKonsole.setBackground(Color.black);
 		
 		taKonsole.setForeground(Color.green);
@@ -101,7 +100,8 @@ public class GuiKonsole extends AbstractGui {
 		if(textQueue.length() > 0) {
 			tmCursor.stop();
 			// eventuellen Cursor rausschnippeln
-			if(textKonsole.endsWith("_")) {
+			if(textKonsole.endsWith("_") && cursor==true) {
+				cursor=false;
 				textKonsole = textKonsole.substring(0, textKonsole.length()-1);
 			}
 		} else {
@@ -129,7 +129,9 @@ public class GuiKonsole extends AbstractGui {
 		
 	}
 
-	private void tmCursor_ActionPerformed(ActionEvent evt) {		
+	private void tmCursor_ActionPerformed(ActionEvent evt) {	
+		cursor = !cursor; // anzeigen, nicht anzeigen, anzeigen, nicht anzeigen, ...
+		
 		if(cursor) {
 			if(!textKonsole.endsWith("_")) {
 				textKonsole += "_";
@@ -139,7 +141,6 @@ public class GuiKonsole extends AbstractGui {
 				textKonsole = textKonsole.substring(0, textKonsole.length()-1);
 			}
 		}
-		cursor = !cursor; // anzeigen, nicht anzeigen, anzeigen, nicht anzeigen, ...
 		
 		taKonsole.setText(textKonsole);
 	}
@@ -180,7 +181,7 @@ public class GuiKonsole extends AbstractGui {
 		GuiKonsole gui = new GuiKonsole();
 		gui.setVisible(true);
 		
-		gui.addLine("Dies ist ein längerer Test für die Konsole und hoffentlich "+
+		gui.addLine("Dies ___ist ein längerer Test für die Konsole und hoffentlich "+
 					"fügt sie bei der 80 Zeichen Grenze einen Umbruch ein...\n");
 		
 		while(gui.isVisible() == true) {
