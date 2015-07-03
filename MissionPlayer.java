@@ -20,7 +20,7 @@ public class MissionPlayer {
 			// hier werden alle MiniGames geladen mit der gegebenen Schwierigkeit
 	}
 	
-	public void starten() {
+	public void starten(int spielerGeld) {
 		// die Konsole sichtbar machen
 		guiKonsole.setVisible(true);
 		
@@ -59,6 +59,7 @@ public class MissionPlayer {
 				sleep(1);
 				miniGame.setVisible(false);
 				miniGame.dispose();
+				sleep(1);
 				fail = true;
 				break;
 			}
@@ -85,7 +86,110 @@ public class MissionPlayer {
 		guiKonsole.addLine();
 		guiKonsole.addLine("Dein Schlafbedarf hat sich um "+mission.getSchlafbedarf()+" erhöht.");
 		
-		fertig = true;
+		if(mission.getName() == "Die NSA hacken" && fail == false) {
+			// GEWONNEN!!!
+			win();
+		} else if((spielerGeld - mission.getKosten() + mission.getGewinn()) <= 0) {
+			// Spieler ist pleite => verloren.
+			fail();
+		} else {		
+			sleep(3);
+			
+			fertig = true;
+		}
+	}
+	
+	public static void main(String[] args) {
+		MissionPlayer mp = new MissionPlayer(new MissionLader().getMissionen().get(0));
+		mp.guiKonsole.setVisible(true);
+		//mp.win();
+		//mp.fail();
+		mp.credits();
+	}
+	
+	private void credits() {
+		guiKonsole.addLine();
+		guiKonsole.addLine();
+		guiKonsole.addLine();
+
+		guiKonsole.addLine(" _   _    __    ___  _  _  ____  ____          ___    __    __  __  ____ ");
+		guiKonsole.addLine("( )_( )  /__\\  / __)( )/ )( ___)(  _ \\ ___    / __)  /__\\  (  \\/  )( ___)");
+		guiKonsole.addLine(" ) _ (  /(__)\\( (__  )  (  )__)  )   /(___)  ( (_-. /(__)\\  )    (  )__) ");
+		guiKonsole.addLine("(_) (_)(__)(__)\\___)(_)\\_)(____)(_)\\_)        \\___/(__)(__)(_/\\/\\_)(____)");
+		
+		guiKonsole.addLine();
+		guiKonsole.addLine("by Doran Nettig and Christopher Büchse, 2015");
+		
+		sleep(7);
+		
+		guiKonsole.addLine();
+		guiKonsole.addLine("Dieses Spiel entstand mit Java,");
+		sleep(3);
+		guiKonsole.addLine("Code, der vorher noch nicht da war.");
+		sleep(3);
+		guiKonsole.addLine("Viele Stunden Schweiß und Sorgen,");
+		sleep(3);
+		guiKonsole.addLine("Fertig sein solls heut', nicht morgen.");
+		sleep(3);
+		guiKonsole.addLine();
+		sleep(3);
+		guiKonsole.addLine("Der Lehrer hat nun Spaß und Pflicht,");
+		sleep(3);
+		guiKonsole.addLine("Die Spiele testen, sonst gehts nicht.");
+		sleep(3);
+		guiKonsole.addLine("Und wird er lesen diese Zeilen,");
+		sleep(3);
+		guiKonsole.addLine("Nicht mehr allzu lang beim Spiel verweilen.");
+		sleep(3);
+		guiKonsole.addLine();
+		sleep(3);
+		guiKonsole.addLine("Missionen gelöst oder Geld ist leer,");
+		sleep(3);
+		guiKonsole.addLine("Manche, waren wirklich schwer.");
+		sleep(3);
+		guiKonsole.addLine("Doch was ist's, was macht uns froh?");
+		sleep(3);
+		guiKonsole.addLine("'Ne gute Note, sowieso.");
+		sleep(3);
+		guiKonsole.addLine();
+		sleep(3);
+		guiKonsole.addLine("Christopher, 03.07.2015, 15:45");
+		sleep(60);
+	}
+	
+	private void win() {
+		guiKonsole.clear();
+		
+		// ASCII-Art von http://www.network-science.de/ascii/
+		guiKonsole.addLine("         _________ _       ");
+		guiKonsole.addLine("|\\     /|\\__   __/( (    /|");
+		guiKonsole.addLine("| )   ( |   ) (   |  \\  ( |");
+		guiKonsole.addLine("| | _ | |   | |   |   \\ | |");
+		guiKonsole.addLine("| |( )| |   | |   | (\\ \\) |");
+		guiKonsole.addLine("| || || |   | |   | | \\   |");
+		guiKonsole.addLine("| () () |___) (___| )  \\  |");
+		guiKonsole.addLine("(_______)\\_______/|/    )_)");
+		guiKonsole.addLine();
+		
+		credits();
+		System.exit(0);
+	}
+	
+	private void fail() {
+		guiKonsole.clear();
+		
+		// ASCII-Art von http://www.network-science.de/ascii/
+		guiKonsole.addLine("  _______  _______ _________ _       ");
+		guiKonsole.addLine(" (  ____ \\(  ___  )\\__   __/( \\      ");
+		guiKonsole.addLine(" | (    \\/| (   ) |   ) (   | (      ");
+		guiKonsole.addLine(" | (__    | (___) |   | |   | |      ");
+		guiKonsole.addLine(" |  __)   |  ___  |   | |   | |      ");
+		guiKonsole.addLine(" | (      | (   ) |   | |   | |      ");
+		guiKonsole.addLine(" | )      | )   ( |___) (___| (____/\\");
+		guiKonsole.addLine(" |/       |/     \\|\\_______/(_______/");
+		
+		credits();
+		System.exit(0);
 	}
 	
 	private void sleep(int sekunden) {
