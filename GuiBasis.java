@@ -18,14 +18,8 @@ public class GuiBasis extends AbstractGui {
 	private JButton btnMateAnw = new JButton();
 	private JButton btnHub = new JButton();
 	
-	private boolean toHub = false;
-	
 	private int preisMate = 1;
 	private int preisServ = 5;
-	
-	private int deltaServ = 0;
-	private int deltaMoney = 0;
-	private int deltaMate = 0;
 	
 	private Charakter charakter;
 
@@ -236,6 +230,4 @@ public class GuiBasis extends AbstractGui {
 	public Charakter getChar() {
 		return charakter;
 	}
-
-	// Ende Methoden
-} // end of class GuiBasis
+}
