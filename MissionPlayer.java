@@ -26,7 +26,6 @@ public class MissionPlayer {
 		
 		guiKonsole.addLine("Mission \""+mission.getName()+"\" gestartet...");
 		sleep(2);
-		guiKonsole.addLine("blablubb test");
 		
 		for(int i = 1; i <= mission.getSpielzahl(); i++) {
 			// so lange MiniGames starten, bis die obere Grenze erreicht ist
