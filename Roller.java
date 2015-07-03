@@ -64,7 +64,6 @@ public class Roller extends AbstractMiniGame {
 	private Timer tm1 = new Timer(700 - 35*schwierigkeit, t1);
 	private ActionListener t2 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Hi!");
 			z2_1.setText(text.get(1*10+2+durchgaenge2));
 			z2_2.setText(text.get(1*10+1+durchgaenge2));
 			z2_3.setText(text.get(1*10+0+durchgaenge2));
@@ -258,13 +257,9 @@ public class Roller extends AbstractMiniGame {
 		z4_2.setForeground(Color.GREEN);
 		jPanel4.add(z4_2);
 		
-
 		cp.setBackground(Color.BLACK);
-		// Ende Komponenten
-
 	}
 
-	// Anfang Methoden
 	public void btnStop_ActionPerformed(ActionEvent evt) {
 		sto++;
 		if (sto == 1) {
