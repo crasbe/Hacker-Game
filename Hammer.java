@@ -49,7 +49,7 @@ public class Hammer extends AbstractMiniGame {
 
 		this.schwierigkeit = schwierigkeit;
 		
-		tm1 = new Timer(800 + 700 / schwierigkeit, t1);
+		tm1 = new Timer(750+(160-10*schwierigkeit), t1);
 
 		int frameWidth = 404;
 		int frameHeight = 386;
@@ -111,7 +111,7 @@ public class Hammer extends AbstractMiniGame {
 	}
 
 	public static void main(String[] args) {
-		AbstractMiniGame reflKey = new Hammer(0);
+		AbstractMiniGame reflKey = new Hammer(10);
 		reflKey.initialisieren();
 		reflKey.setVisible(true);
 	} // end of main
