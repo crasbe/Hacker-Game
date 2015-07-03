@@ -47,7 +47,7 @@ public class HackerGame {
 			
 			MissionPlayer missionLauncher = new MissionPlayer(missionAuswahl);
 			
-			missionLauncher.starten();
+			missionLauncher.starten(charakterSpiel.getMoney());
 			
 			while(missionLauncher.isFertig() == false) {
 				try {
@@ -67,8 +67,6 @@ public class HackerGame {
 			
 			speichern();
 		}
-		
-		//System.exit(0);
 	}
 	
 	private static void speichern() {
