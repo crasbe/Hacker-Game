@@ -19,7 +19,7 @@ public class GuiBasis extends AbstractGui {
 	private JButton btnHub = new JButton();
 	
 	private int preisMate = 1;
-	private int preisServ = 5;
+	private int preisServ = 50;
 	
 	private Charakter charakter;
 
