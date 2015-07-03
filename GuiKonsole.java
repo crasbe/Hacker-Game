@@ -1,200 +1,217 @@
-import java.awt.*;
-import java.awt.event.*;
-import java.lang.reflect.Array;
 
-import javax.swing.*;
-
-public class GuiKonsole extends AbstractGui {
-	// Anfang Attribute
+public class MissionPlayer {
+	// der MissionPlayer ist jene Klasse, die die Mission "abspielt"
 	
-	// dieser Timer sorgt für das Cursorblinken
-	private Timer tmCursor = new Timer(500, new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent evt) {
-			tmCursor_ActionPerformed(evt);
-		}
-	});
+	private boolean fail = false;	// falls ein MiniGame nicht erfolgreich abgeschlossen
+									// wird, wird "fail" true und die Mission gilt als
+									// gescheitert
+	private boolean fertig = false;
 	
-	// und dieser Timer wird für jeden neuen Buchstaben gefeuert
-	private Timer tmText = new Timer(25, new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent evt) {
-			tmText_ActionPerformed(evt);
-		}
-	});
-	private boolean cursor = false;  // cursor sichtbar/unsichtbar
-	private String textKonsole = "";
-		// der komplette Inhalt der Konsole wird hier gespeichert
+	private GuiKonsole guiKonsole = new GuiKonsole();
+		// in der Konsole findet der Hackvorgang statt
+	private MiniGameLader lader;
+	private Mission mission;     // speichern der übergebenen Mission
 	
-	private String textQueue = "";
-		// der noch zu schreibende Text hier
-	
-	private JTextArea taKonsole = new JTextArea();
-	private JScrollPane taKonsoleScrollPane = new JScrollPane(taKonsole);
-	// Ende Attribute
-
-	public GuiKonsole() {
-		// Frame-Initialisierung
-		super();
+	public MissionPlayer(Mission mission) {
 		
-		setTitle("Konsole");
-		int frameWidth = 830;
-		int frameHeight = 520;
-		setSize(frameWidth, frameHeight);
-		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (d.width - getSize().width) / 2;
-		int y = (d.height - getSize().height) / 2;
-		setLocation(x, y);
-		setResizable(false);
-		Container cp = getContentPane();
-		cp.setLayout(null);
-		// Anfang Komponenten
-
-		taKonsole.setEditable(false);
-		// wir wollen nur vertikal scrollen
-		taKonsoleScrollPane.setVerticalScrollBarPolicy(
-                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		taKonsoleScrollPane.setHorizontalScrollBarPolicy(
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		this.mission = mission;
 		
-		taKonsoleScrollPane.setBounds(4, 4, 822, 484);
-		taKonsole.setFont(new Font("Monospaced", Font.BOLD, 16));
-		taKonsole.setBackground(Color.black);
-		
-		taKonsole.setForeground(Color.green);
-		cp.add(taKonsoleScrollPane);
-		// Ende Komponenten
-
-		// go timers, go!
-		tmCursor.start();
-		tmText.start();
-	} // end of public GuiKonsole
-
-	private <T> T[] concatenate (T[] a, T[] b) {
-		// da Java irgendwie echt scheiße ist, was Arrays angeht, muss hier eine
-		// gehackte Funktion zum Mergen von zwei Arrays rein. von stackoverflow.
-	    int aLen = a.length;
-	    int bLen = b.length;
-
-	    @SuppressWarnings("unchecked")
-	    T[] c = (T[]) Array.newInstance(a.getClass().getComponentType(), aLen+bLen);
-	    System.arraycopy(a, 0, c, 0, aLen);
-	    System.arraycopy(b, 0, c, aLen, bLen);
-
-	    return c;
+		lader = new MiniGameLader(mission.getSchwierigkeit());
+			// hier werden alle MiniGames geladen mit der gegebenen Schwierigkeit
 	}
 	
-	private void tmText_ActionPerformed(ActionEvent evt) {	
-		String[] lines;
+	public void starten(int spielerGeld) {
+		// die Konsole sichtbar machen
+		guiKonsole.setVisible(true);
 		
-		// Eigenheit von Split: wenn das zweite Array leer wäre, wird es
-		// wegrationalisiert...
-		if(textKonsole.endsWith("\n")) {
-			String[] array = {""};
-			lines = concatenate(textKonsole.split("\n"), array);
-		} else {
-			lines = textKonsole.split("\\r?\\n");
-		}
-		String lastLine = lines[lines.length-1];
+		guiKonsole.addLine("Mission \""+mission.getName()+"\" gestartet...");
+		sleep(2);
 		
-		if(textQueue.length() > 0) {
-			tmCursor.stop();
-			// eventuellen Cursor rausschnippeln
-			if(textKonsole.endsWith("_") && cursor==true) {
-				cursor=false;
-				textKonsole = textKonsole.substring(0, textKonsole.length()-1);
+		for(int i = 1; i <= mission.getSpielzahl(); i++) {
+			// so lange MiniGames starten, bis die obere Grenze erreicht ist
+			
+			guiKonsole.addLine("Starte Herausforderung "+i+" von "+mission.getSpielzahl()+"...");
+			while(guiKonsole.isQueueEmpty() == false) {
+				sleep(1);
 			}
-		} else {
-			tmCursor.start();
-			return;
-		}
-		
-		if(lastLine.length() == 80) {
-			textKonsole += "\n";
-			taKonsole.setText(textKonsole);
-			return;
-		}
-		
-		if(textQueue.equals("\n")) {
-			textKonsole += "\n";
-			taKonsole.setText(textKonsole);
-			textQueue = "";
-			return;
-		}
-		
-		textKonsole += textQueue.charAt(0);
-		textQueue = textQueue.substring(1);
-		
-		taKonsole.setText(textKonsole);
-		
-	}
-
-	private void tmCursor_ActionPerformed(ActionEvent evt) {	
-		cursor = !cursor; // anzeigen, nicht anzeigen, anzeigen, nicht anzeigen, ...
-		
-		if(cursor) {
-			if(!textKonsole.endsWith("_")) {
-				textKonsole += "_";
+			
+			// hier wird ein zufälliges Spiel aus den geladenen Spielen ausgesucht
+			AbstractMiniGame miniGame = lader.miniGameWaehlen();
+			
+			miniGame.initialisieren();	// das Minigame initialisieren und z.B.
+										// Zufallszahlen bilden.
+			miniGame.setVisible(true); // Lasset die Spiele beginnen!
+			
+			while(miniGame.fertig() == false && miniGame.isVisible() == true) {
+				// so lange das Spiel noch nicht fertig ist oder das Fenster nicht
+				// geschlossen wurde, wird gewartet
+				sleep(1);
 			}
-		} else {
-			if(textKonsole.endsWith("_")) {
-				textKonsole = textKonsole.substring(0, textKonsole.length()-1);
+			
+			if(miniGame.erfolgreichGeloest() == true) {
+				guiKonsole.addLine("Herausforderung "+i+" erfolgreich gelöst!");
+				sleep(1);
+				miniGame.setVisible(false);
+				miniGame.dispose();
+			} else {
+				guiKonsole.addLine("An der Herausforderung "+i+" gescheitert...");
+				sleep(1);
+				miniGame.setVisible(false);
+				miniGame.dispose();
+				sleep(1);
+				fail = true;
+				break;
 			}
 		}
 		
-		taKonsole.setText(textKonsole);
-	}
-	
-	public void addText(String text) {
-		// dem Queue etwas Text hinzufügen
-		this.textQueue += text;
-	}
-	
-	public void addLine(String text) {
-		// dem Queue etwas Text hinzufügen mit einer Newline
-		this.textQueue += text+"\n";
-	}
-	
-	public void addLine() {
-		// dem Queue wird ein Newline hinzugefügt
-		this.textQueue += "\n";
-	}
-	
-	public boolean isQueueEmpty() {
-		// diese Funktion gibt wieder, ob der Queue leer ist,
-		// also ob alle Buchstaben geschrieben wurden
-		
-		if(this.textQueue.isEmpty()) {
-			return true;
+		if(fail == true) {
+			guiKonsole.addLine("Mission gescheitert!");
+			guiKonsole.addLine();
+			guiKonsole.addLine("Du hast für die Mission "+mission.getKosten()+"€ ausgegeben.");
 		} else {
-			return false;
+			guiKonsole.addLine("Du hast alle Herausforderungen gelöst!");
+			guiKonsole.addLine();
+			guiKonsole.addLine("Die Mission \""+mission.getName()+"\" ist erfolgreich abgeschlossen!");
+			guiKonsole.addLine("Folgende Belohnungen erwarten dich:");
+			guiKonsole.addLine("Geld:");
+			guiKonsole.addLine("  Ausgaben: "+mission.getKosten());
+			guiKonsole.addLine("  Einnahmen: "+mission.getGewinn());
+			guiKonsole.addLine("   -> Gewinn: "+(mission.getGewinn()-mission.getKosten()));
+			guiKonsole.addLine();
+			guiKonsole.addLine("Skillverbesserung: "+mission.getSkillverbesserung());
+			
+		}
+		
+		guiKonsole.addLine();
+		guiKonsole.addLine("Dein Schlafbedarf hat sich um "+mission.getSchlafbedarf()+" erhöht.");
+		
+		if(mission.getName() == "Die NSA hacken" && fail == false) {
+			// GEWONNEN!!!
+			win();
+		} else if((spielerGeld - mission.getKosten() + mission.getGewinn()) <= 0) {
+			// Spieler ist pleite => verloren.
+			fail();
+		} else {		
+			sleep(3);
+			
+			fertig = true;
 		}
 	}
 	
-	public void clear() {
-		this.textKonsole = "";
-		this.textQueue = "";
-	}
-
 	public static void main(String[] args) {
-		// ein bisschen Testkram
-		GuiKonsole gui = new GuiKonsole();
-		gui.setVisible(true);
-		
-		gui.addLine("Dies ___ist ein längerer Test für die Konsole und hoffentlich "+
-					"fügt sie bei der 80 Zeichen Grenze einen Umbruch ein...\n");
-		
-		while(gui.isVisible() == true) {
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		};
-		
-		System.exit(0);
-		
-	} // end of main
+		MissionPlayer mp = new MissionPlayer(new MissionLader().getMissionen().get(0));
+		mp.guiKonsole.setVisible(true);
+		//mp.win();
+		//mp.fail();
+		mp.credits();
+	}
+	
+	private void credits() {
+		guiKonsole.addLine();
+		guiKonsole.addLine();
+		guiKonsole.addLine();
 
-	// Ende Methoden
-} // end of class GuiKonsole
+		guiKonsole.addLine(" _   _    __    ___  _  _  ____  ____          ___    __    __  __  ____ ");
+		guiKonsole.addLine("( )_( )  /__\\  / __)( )/ )( ___)(  _ \\ ___    / __)  /__\\  (  \\/  )( ___)");
+		guiKonsole.addLine(" ) _ (  /(__)\\( (__  )  (  )__)  )   /(___)  ( (_-. /(__)\\  )    (  )__) ");
+		guiKonsole.addLine("(_) (_)(__)(__)\\___)(_)\\_)(____)(_)\\_)        \\___/(__)(__)(_/\\/\\_)(____)");
+		
+		guiKonsole.addLine();
+		guiKonsole.addLine("by Doran Nettig and Christopher Büchse, 2015");
+		
+		sleep(7);
+		
+		guiKonsole.addLine();
+		guiKonsole.addLine("Dieses Spiel entstand mit Java,");
+		sleep(3);
+		guiKonsole.addLine("Code, der vorher noch nicht da war.");
+		sleep(3);
+		guiKonsole.addLine("Viele Stunden Schweiß und Sorgen,");
+		sleep(3);
+		guiKonsole.addLine("Fertig sein solls heut', nicht morgen.");
+		sleep(3);
+		guiKonsole.addLine();
+		sleep(3);
+		guiKonsole.addLine("Der Lehrer hat nun Spaß und Pflicht,");
+		sleep(3);
+		guiKonsole.addLine("Die Spiele testen, sonst gehts nicht.");
+		sleep(3);
+		guiKonsole.addLine("Und wird er lesen diese Zeilen,");
+		sleep(3);
+		guiKonsole.addLine("Nicht mehr allzu lang beim Spiel verweilen.");
+		sleep(3);
+		guiKonsole.addLine();
+		sleep(3);
+		guiKonsole.addLine("Missionen gelöst oder Geld ist leer,");
+		sleep(3);
+		guiKonsole.addLine("Manche, waren wirklich schwer.");
+		sleep(3);
+		guiKonsole.addLine("Doch was ist's, was macht uns froh?");
+		sleep(3);
+		guiKonsole.addLine("'Ne gute Note, sowieso.");
+		sleep(3);
+		guiKonsole.addLine();
+		sleep(3);
+		guiKonsole.addLine("Christopher, 03.07.2015, 15:45");
+		sleep(60);
+	}
+	
+	private void win() {
+		guiKonsole.clear();
+		
+		// ASCII-Art von http://www.network-science.de/ascii/
+		guiKonsole.addLine("         _________ _       ");
+		guiKonsole.addLine("|\\     /|\\__   __/( (    /|");
+		guiKonsole.addLine("| )   ( |   ) (   |  \\  ( |");
+		guiKonsole.addLine("| | _ | |   | |   |   \\ | |");
+		guiKonsole.addLine("| |( )| |   | |   | (\\ \\) |");
+		guiKonsole.addLine("| || || |   | |   | | \\   |");
+		guiKonsole.addLine("| () () |___) (___| )  \\  |");
+		guiKonsole.addLine("(_______)\\_______/|/    )_)");
+		guiKonsole.addLine();
+		
+		credits();
+		System.exit(0);
+	}
+	
+	private void fail() {
+		guiKonsole.clear();
+		
+		// ASCII-Art von http://www.network-science.de/ascii/
+		guiKonsole.addLine("  _______  _______ _________ _       ");
+		guiKonsole.addLine(" (  ____ \\(  ___  )\\__   __/( \\      ");
+		guiKonsole.addLine(" | (    \\/| (   ) |   ) (   | (      ");
+		guiKonsole.addLine(" | (__    | (___) |   | |   | |      ");
+		guiKonsole.addLine(" |  __)   |  ___  |   | |   | |      ");
+		guiKonsole.addLine(" | (      | (   ) |   | |   | |      ");
+		guiKonsole.addLine(" | )      | )   ( |___) (___| (____/\\");
+		guiKonsole.addLine(" |/       |/     \\|\\_______/(_______/");
+		
+		credits();
+		System.exit(0);
+	}
+	
+	private void sleep(int sekunden) {
+		// kleine Methode, um redundante try-catches zu vermeiden
+		try {
+			Thread.sleep(sekunden*1000);
+		} catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean isFertig() {
+		// erst ausschreiben lassen!
+		return fertig && guiKonsole.isQueueEmpty();
+	}
+	
+	public boolean isFail() {
+		return fail;
+	}
+	
+	public void beenden() {
+		guiKonsole.setVisible(false);
+		guiKonsole.clear();
+	}
+	
+}
