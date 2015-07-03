@@ -24,13 +24,6 @@ public class HackerGame {
 		charakterAusgewaehlt = true;
 		
 		while(true) {
-			// Basis
-			guiBasis = new GuiBasis(charakterSpiel);
-			guiBasis.initialisieren();
-			guiBasis.setVisible(true);
-			warten(guiBasis);
-			guiBasis.guiAusblenden();
-			charakterSpiel = ((GuiBasis) guiBasis).getChar();
 			
 			// hier ist die Hub Gui aktiv
 			guiHub = new GuiHub(new MissionLader(charakterSpiel.getAbgeschMissionen()).getMissionen());
@@ -38,6 +31,17 @@ public class HackerGame {
 			guiHub.setVisible(true);
 			warten(guiHub);
 			guiHub.guiAusblenden();
+			
+			if(((GuiHub) guiHub).zuBasis()) {
+				// Basis
+				guiBasis = new GuiBasis(charakterSpiel);
+				guiBasis.initialisieren();
+				guiBasis.setVisible(true);
+				warten(guiBasis);
+				guiBasis.guiAusblenden();
+				charakterSpiel = ((GuiBasis) guiBasis).getChar();
+				continue;
+			}
 			
 			Mission missionAuswahl = ((GuiHub) guiHub).getAusgewaehlteMission();
 			
