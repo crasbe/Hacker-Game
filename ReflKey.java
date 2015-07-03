@@ -61,7 +61,6 @@ public class ReflKey extends AbstractMiniGame {
 		
 		this.schwierigkeit = schwierigkeit;
 		
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		int frameWidth = 289;
 		int frameHeight = 431;
 		setSize(frameWidth, frameHeight);
@@ -158,10 +157,7 @@ public class ReflKey extends AbstractMiniGame {
 		achtung.setVisible(false);
 		cp.add(achtung);
 		// Ende Komponenten
-
-	} // end of public ReflKey
-
-	// Anfang Methoden
+	}
 
 	public static void main(String[] args) {
 		AbstractMiniGame reflKey = new ReflKey(0);
